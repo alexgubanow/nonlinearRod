@@ -14,11 +14,7 @@
 \title{Forces in rod}
 \author{Oleksandr Hubanov\\
 Vilnius Gediminas Technical University}
-%\renewcommand{\today}{November 2, 1994}
 \maketitle
-%{\em like this}. curve font
-%\bf bold font
-%\rm roman font
 \pagebreak
 \chapter {1D rod system}
 Object of work is system of 1D rods. Object has been divided to discrete elements n1, n2 and n3.
@@ -31,7 +27,6 @@ As elements is 1D, nodes will be 1D as well. All system acting in global coordin
   \includesvg{systemAtworld}    
   \caption{1D Rod system in global coordinate system}      
 \end{figure}
-\section{Linear case}
 The motion of nodes can be expressed by Newton's equation of motion. If only the normal component of the translational
 motion is considered, the equation reduces to\par
 \begin{equation}\label{eqn:motionEq}
@@ -66,6 +61,7 @@ to act forces in node\eqref{eqn:sumF} for each node in relation to their applica
    \overrightarrow{F_{elem}}\times[DCM]+
    \overrightarrow{F_{press}}\times[DCM]
 \end{equation}\par
+\section{Linear case}
 $F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for each time step is loaded
 from list of loads.\par
 $F_{elem}$ is sum of internal forces of each elemen, which acting in node. From each element becomes only half of force to 
@@ -89,7 +85,7 @@ According to Hook law $\sigma=\varepsilon E$ and geometry equation \eqref{eqn:de
 \begin{equation}\label{eqn:NxFull}
   N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l-l_0)
 \end{equation}
-where $l$ current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.
+where $l$ is current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.
 To be able to integrate equation of motion, need to express deformation in equation \eqref{eqn:NxFull} by differenses 
 between displacements of nodes, to which element is connected:
 \begin{equation}\label{eqn:NxWdispl}
@@ -105,9 +101,35 @@ Equations of motion for integrating can be described like:
 \begin{equation}\label{eqn:Displ}
   U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
 \end{equation}
-
-\pagebreak
-
-\chapter {Nonlinear case}
+\section{Nonlinear case}
+Same as in liner case there would act same list of forces: external load force $F_{ext}$,
+internal forces of each element $F_{elem}$, and external pressure $F_{press}$. But all 
+of these forces could get nonlinear changing over time. $F_{ext}$ and $F_{press}$ is 
+loaded from list of loads.
+\par
+Geometry equation \eqref{eqn:deformation} in nonlinear case become to:
+\begin{equation}\label{eqn:ndeformation}
+  \varepsilon=\frac{dU}{dx}=\frac{l-l_0}{l_0}
+\end{equation}
+According to Hook law $\sigma=\varepsilon E$ and geometry equation \eqref{eqn:ndeformation}, inner force can be changed to
+\begin{equation}\label{eqn:nNxFull}
+  N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l-l_0)
+\end{equation}
+where $l$ is current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.
+To be able to integrate equation of motion, need to express deformation in equation \eqref{eqn:nNxFull} by differenses 
+between displacements of nodes, to which element is connected:
+\begin{equation}\label{eqn:nNxWdispl}
+  N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
+\end{equation}\par
+Equations of motion for integrating can be described like:
+\begin{equation}\label{eqn:nAccel}
+  \ddot{U}(\Delta t)=Fn/m
+\end{equation}
+\begin{equation}\label{eqn:nVelos}
+  \dot{U}(\Delta t)=\dot{U}(t)+\ddot{U}(\Delta t)\Delta t
+\end{equation}
+\begin{equation}\label{eqn:nDispl}
+  U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
+\end{equation}
 
 \end{document}

@@ -1,0 +1,51 @@
+% Example LaTeX document for GP111 - note % sign indicates a comment
+\documentclass[12pt]{article}
+% Default margins are too wide all the way around.  I reset them here
+\setlength{\topmargin}{-1.4in}
+\setlength{\textheight}{10.8in}
+\setlength{\oddsidemargin}{.125in}
+\setlength{\textwidth}{6.25in} 
+\usepackage[svgnames]{xcolor}
+\usepackage{mathtools}
+\usepackage{svg}
+\svgpath{./fig/}
+\usepackage[colorlinks=true, linkcolor=Black, urlcolor=Black]{hyperref}
+\begin{document}
+\title{Forces in rod}
+\author{Oleksandr Hubanov\\
+Vilnius Gediminas Technical University}
+%\renewcommand{\today}{November 2, 1994}
+\maketitle
+%{\em like this}. curve font
+%\bf bold font
+%\rm roman font
+\section {Linear case}
+Object of work is system of 1D rods. Object has been divided to discrete elements n1, n2 and n3.
+All elements are connected to each other through nodes n2, n3 and to special points through n1 and n4(figure 1).
+Mat model of discrete system is expressed by equations of motion for nodes. As elements is 1D, nodes will be 1D as well. \par
+\textcolor{red}{Discribe global coord system in which object acting} \par
+The motion of nodes can be expressed by Newton's equation of motion. If only the normal component of the translational
+motion is considered, the equation reduces to\par
+\begin{equation}\label{eqn:motionEq}
+   F(x)-m\ddot{x}=0
+\end{equation}
+where $F(x)$ is axial force, $m$ – mass of node and $\ddot{x}$ is acceleration, initial conditions are: $x(0)=0$ and $\dot{x}(0)=V_0$\par
+Mass of each node can be calculated, like sum of half mass of each element, which acting in node.\par
+\begin{figure}
+  \centering
+  \includesvg{nodeExtract}    
+  \caption{Extracting node from system}    
+\end{figure}
+For investigating motion of system need to integrate \eqref{eqn:motionEq}. For this propose need to express all possible to act forces in node for each node.
+Also need to translate forces which acting in element to node \eqref{eqn:sumF}. 
+\begin{equation}\label{eqn:sumF}
+   \sum F=F + df
+\end{equation}
+
+\pagebreak
+
+\section {Nonlinear case}
+
+\end{document}
+\end{verbatim}
+\end{document}

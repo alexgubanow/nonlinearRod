@@ -1,0 +1,11 @@
+#svg-inkscape
+svg-inkscape/
+
+__latexindent_temp.tex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.aux

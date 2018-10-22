@@ -1,14 +1,15 @@
 \documentclass[12pt]{report}
 \setlength{\topmargin}{-1.1in}
-\setlength{\textheight}{10.5in}
+\setlength{\textheight}{10in}
 \setlength{\oddsidemargin}{.125in}
 \setlength{\textwidth}{6.25in} 
 \usepackage[svgnames]{xcolor}
+\usepackage[colorlinks=true, linkcolor=Black, urlcolor=Black]{hyperref}
+\usepackage{bookmark}
 \usepackage{mathtools}
 \usepackage{float}
 \usepackage{svg}
 \svgpath{./fig/}
-\usepackage[colorlinks=true, linkcolor=Black, urlcolor=Black]{hyperref}
 \begin{document}
 \title{Forces in rod}
 \author{Oleksandr Hubanov\\
@@ -19,7 +20,7 @@ Vilnius Gediminas Technical University}
 %\bf bold font
 %\rm roman font
 \pagebreak
-\section {Linear case}
+\chapter {1D rod system}
 Object of work is system of 1D rods. Object has been divided to discrete elements n1, n2 and n3.
 All elements are connected to each other through nodes n2, n3 and to special points through n1 and n4
 (figure \ref{fig:rodSystem}). Mathematical model of discrete system is expressed by equations of motion for nodes.
@@ -30,6 +31,7 @@ As elements is 1D, nodes will be 1D as well. All system acting in global coordin
   \includesvg{systemAtworld}    
   \caption{1D Rod system in global coordinate system}      
 \end{figure}
+\section{Linear case}
 The motion of nodes can be expressed by Newton's equation of motion. If only the normal component of the translational
 motion is considered, the equation reduces to\par
 \begin{equation}\label{eqn:motionEq}
@@ -45,10 +47,24 @@ $m_n=\sum_{e}m_e/2$
   \includesvg{nodeExtract}    
   \caption{Extracting node from system}    
 \end{figure}
+All vector varibles of node should be calculated in global coordinate system and of element in own local coordinate 
+system(figure \ref{fig:nodeExtract}). For trasformation between coordinate systems direction cosine matrix
+(DCM)\eqref{eqn:DCM} can be used.
+\begin{equation}\label{eqn:DCM}
+  DCM= \begin{bmatrix}
+    cos(Xx)&cos(Xy)&cos(Xz)\\
+    cos(Yx)&cos(Yy)&cos(Yz)\\
+    cos(Zx)&cos(Zy)&cos(Zz)\\
+   \end{bmatrix} 
+\end{equation}
+ where {X, Y, Z} is global coordinate system and {x, y, z} is local coordinate system.\par
 For investigating motion of system need to integrate \eqref{eqn:motionEq}. For this propose need to express all possible 
 to act forces in node\eqref{eqn:sumF} for each node in relation to their application place. 
 \begin{equation}\label{eqn:sumF}
-   \overrightarrow{F_n}=\sum\overrightarrow{F}=\overrightarrow{F_{ext}}+\overrightarrow{F_{elem}}+\overrightarrow{F_{press}}
+   \overrightarrow{F_n}=\sum\overrightarrow{F}=
+   \overrightarrow{F_{ext}}+
+   \overrightarrow{F_{elem}}\times[DCM]+
+   \overrightarrow{F_{press}}\times[DCM]
 \end{equation}\par
 $F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for each time step is loaded
 from list of loads.\par
@@ -62,28 +78,24 @@ For 1D rod system $F_{elem}$ can be expressed like:
 \begin{equation}\label{eqn:Felem}
   F_{elem}= \sum_{e}N_e(x)/2
 \end{equation}
-$F_{press}$ is external pressure, can be described like force applied to element in local coordinate. Value of this force
+$F_{press}$ is external pressure, can be described like force applied to element in local coordinates. Value of this force
 for each time step is loaded from list of loads. \par
-All varibles of node should be calculated in global coordinate system and for element in own local coordinate 
-system(figure \ref{fig:nodeExtract}). For trasformation between coordinate systems direction cosine matrix
-(DCM)\eqref{eqn:DCM} can be used.
-\begin{equation}\label{eqn:DCM}
-  DCM= \begin{bmatrix}
-    cos(Xx)&cos(Xy)&cos(Xz)\\
-    cos(Yx)&cos(Yy)&cos(Yz)\\
-    cos(Zx)&cos(Zy)&cos(Zz)\\
-   \end{bmatrix} 
+Element force becomes from physical deformation of element. Geometry equation\eqref{eqn:deformation} describing relation between initial length of
+element and lenght in $\Delta t$ state, by other words its describing deformation of element over time.
+\begin{equation}\label{eqn:deformation}
+  \varepsilon=\frac{dU}{dx}=\frac{l-l_0}{l_0}
 \end{equation}
- where {X, Y, Z} is global coordinate system and {x, y, z} is local coordinate system.\par
- According to Hook law $\sigma=\varepsilon E$ and geometry equation $\varepsilon=\frac{dU}{dx}=\frac{l-l_0}{l_0}$,
- inner force can be changed to
- %Привести определение деформации
- \begin{equation}\label{eqn:NxFull}
-  N(x)= \int\limits_t\int\limits_A \sigma dA
+According to Hook law $\sigma=\varepsilon E$ and geometry equation \eqref{eqn:deformation}, inner force can be changed to
+\begin{equation}\label{eqn:NxFull}
+  N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l-l_0)
 \end{equation}
- where $l$ current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.\par
- Equations of motion for integrating can be described like:
-
+where $l$ current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.
+To be able to integrate equation of motion, need to express deformation in equation \eqref{eqn:NxFull} by differenses 
+between displacements of nodes, to which element is connected:
+\begin{equation}\label{eqn:NxWdispl}
+  N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
+\end{equation}\par
+Equations of motion for integrating can be described like:
 \begin{equation}\label{eqn:Accel}
   \ddot{U}(\Delta t)=Fn/m
 \end{equation}
@@ -93,11 +105,9 @@ system(figure \ref{fig:nodeExtract}). For trasformation between coordinate syste
 \begin{equation}\label{eqn:Displ}
   U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
 \end{equation}
- 
- \pagebreak
 
-\section {Nonlinear case}
+\pagebreak
 
-\end{document}
-\end{verbatim}
+\chapter {Nonlinear case}
+
 \end{document}

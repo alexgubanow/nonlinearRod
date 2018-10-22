@@ -7,6 +7,7 @@
 \setlength{\textwidth}{6.25in} 
 \usepackage[svgnames]{xcolor}
 \usepackage{mathtools}
+\usepackage{float}
 \usepackage{svg}
 \svgpath{./fig/}
 \usepackage[colorlinks=true, linkcolor=Black, urlcolor=Black]{hyperref}
@@ -31,7 +32,7 @@ motion is considered, the equation reduces to\par
 \end{equation}
 where $F(x)$ is axial force, $m$ – mass of node and $\ddot{x}$ is acceleration, initial conditions are: $x(0)=0$ and $\dot{x}(0)=V_0$\par
 Mass of each node can be calculated, like sum of half mass of each element, which acting in node.\par
-\begin{figure}
+\begin{figure}[h]
   \centering
   \includesvg{nodeExtract}    
   \caption{Extracting node from system}    

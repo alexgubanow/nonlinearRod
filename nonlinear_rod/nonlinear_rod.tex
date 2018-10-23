@@ -102,16 +102,49 @@ Equations of motion for integrating can be described like:
   U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
 \end{equation}
 \section{Nonlinear case}
-Same as in liner case there would act same list of forces: external load force $F_{ext}$,
-internal forces of each element $F_{elem}$, and external pressure $F_{press}$. But all 
+As in liner case there would act same list of forces : external load force $F_{ext}$,
+internal forces of each element $F_{elem}$, and external pressure $F_{press}$ as well. In nonlinear case all 
 of these forces could get nonlinear changing over time. $F_{ext}$ and $F_{press}$ is 
-loaded from list of loads.
-\par
-Geometry equation \eqref{eqn:deformation} in nonlinear case become to:
-\begin{equation}\label{eqn:ndeformation}
-  \varepsilon=\frac{dU}{dx}=\frac{l-l_0}{l_0}
+loaded from list of loads. Equation of $F_{elem}$ would change to nonlinear form:
+\begin{equation}\label{eqn:nNx}
+  N(x)= \int\limits_t\int\limits_A \sigma dAdt
 \end{equation}
-According to Hook law $\sigma=\varepsilon E$ and geometry equation \eqref{eqn:ndeformation}, inner force can be changed to
+Geometry equation stays same as in linear case, but Hook Law doesnt work anymore. Mooney-Rivlin model would 
+replace it in nonlinear case.\par
+Mooney-Rivlin models are popular for modeling the large strain nonlinear behavior of incompressible materials. 
+According to thermodynamics laws, the 2nd Piola-Kirchhoff stress is the partial derivative of the 
+Helmholtz free energy with respect to the elastic part of the Green strain tensor (with a density thrown in).
+\[
+\boldsymbol{\sigma}^\text{PK2} = \rho_o \, {\partial \Psi \over \partial {\bf E}^\text{el} }
+\]
+The Helmholtz free energy contains thermal energy and mechanical strain energy.  
+But in most every discussion of Mooney-Rivlin coefficients, the thermal
+part is neglected, leaving only the mechanical part, \(W\).  (Actually, \(W\)
+is declared to represent \(\rho_o \Psi\), not just \(\Psi\)).  Second, since 
+all of the deformation of a hyperelastic material is elastic by definition,
+it is sufficient to write \({\bf E}^\text{el}\) simply as \({\bf E}\).
+This gives
+\[
+\boldsymbol{\sigma}^\text{PK2} = {\partial W \over \partial {\bf E} }
+\]
+But there is a challenge with this general approach.  It is the determination
+of off-diagonal (shear) terms.  As with the shear terms in Hooke's Law, they
+are not independent of the normal terms, but must be consistent with coordinate
+transformations that transform normal components into shears and vice-versa.
+And as with Hooke's Law, the resolution is to define the material behavior
+for the principal values and rely on coordinate transformations to give
+the appropriate corresponding behavior of the shear terms.
+\[
+\sigma_i^\text{PK2} = {\partial W \over \partial E_i }
+\]
+But alas, even this is not quite what is done in Mooney-Rivlin models.  Instead, derivatives
+are taken with respect to <i>stretch ratios</i>, \(\lambda\), which are 
+the ratios of initial and final lengths in the principal directions, 
+\((L_F / L_o)\).  So the stretch ratio is
+"one plus engineering strain,"  \(\lambda = 1 + \epsilon_{Eng}\), and 
+therefore \(\lambda - 1 = \epsilon_{Eng} = \Delta L \, / L_o\).
+
+According to Mooney-Rivlin model and geometry equation \eqref{eqn:deformation}, inner force can be changed to
 \begin{equation}\label{eqn:nNxFull}
   N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l-l_0)
 \end{equation}
@@ -121,15 +154,6 @@ between displacements of nodes, to which element is connected:
 \begin{equation}\label{eqn:nNxWdispl}
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
-Equations of motion for integrating can be described like:
-\begin{equation}\label{eqn:nAccel}
-  \ddot{U}(\Delta t)=Fn/m
-\end{equation}
-\begin{equation}\label{eqn:nVelos}
-  \dot{U}(\Delta t)=\dot{U}(t)+\ddot{U}(\Delta t)\Delta t
-\end{equation}
-\begin{equation}\label{eqn:nDispl}
-  U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
-\end{equation}
-
+Equations of motion for integrating \eqref{eqn:Accel}, \eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear case.
+\par
 \end{document}

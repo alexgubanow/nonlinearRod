@@ -1,0 +1,87 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 2.9 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{Picault2014}{article}{}
+    \name{author}{5}{}{%
+      {{hash=PE}{%
+         family={Picault},
+         familyi={P\bibinitperiod},
+         given={E.},
+         giveni={E\bibinitperiod},
+      }}%
+      {{hash=MHP}{%
+         family={Marone-Hitz},
+         familyi={M\bibinitperiod-H\bibinitperiod},
+         given={P.},
+         giveni={P\bibinitperiod},
+      }}%
+      {{hash=BS}{%
+         family={Bourgeois},
+         familyi={B\bibinitperiod},
+         given={S.},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=CB}{%
+         family={Cochelin},
+         familyi={C\bibinitperiod},
+         given={B.},
+         giveni={B\bibinitperiod},
+      }}%
+      {{hash=GF}{%
+         family={Guinot},
+         familyi={G\bibinitperiod},
+         given={F.},
+         giveni={F\bibinitperiod},
+      }}%
+    }
+    \keyw{Dynamics,Folding,Non-linear elastic rods,Tape spring}
+    \strng{namehash}{PE+1}
+    \strng{fullhash}{PEMHPBSCBGF1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{P}
+    \field{sortinithash}{P}
+    \field{abstract}{%
+    A planar rod model with flexible cross-section has been recently proposed
+  in literature (Guinot et al., 2012). This model is especially suitable for
+  the modeling of tape springs, which develop localized folds due to the
+  flattening of the cross-section. Starting from a complete non-linear elastic
+  shell model, original kinematics assumptions (inspired from the elastica
+  model) have been made to describe the important in-plane changes of the
+  cross-section shape. In the present work, the choice of the position of the
+  rod reference line is discussed. This choice plays an important role in the
+  overall behavior because of the large changes of the cross-section shape. We
+  show that the model published in Guinot et al. (2012) can be improved by
+  considering the centerline as the rod reference line. This enhanced model is
+  then validated through quantitative comparisons with experimental results of
+  dynamic deployments taken from literature. {\textcopyright} 2014 Elsevier
+  Ltd. All rights reserved.%
+    }
+    \verb{doi}
+    \verb 10.1016/j.ijsolstr.2014.05.020
+    \endverb
+    \field{issn}{00207683}
+    \field{title}{{A planar rod model with flexible cross-section for the
+  folding and the dynamic deployment of tape springs: Improvements and
+  comparisons with experiments}}
+    \field{journaltitle}{International Journal of Solids and Structures}
+    \field{year}{2014}
+  \endentry
+\enddatalist
+\endinput

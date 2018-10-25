@@ -3,6 +3,8 @@
 \setlength{\textheight}{10in}
 \setlength{\oddsidemargin}{.125in}
 \setlength{\textwidth}{6.25in} 
+\usepackage[backend=bibtex,style=numeric]{biblatex}
+\bibliography{../library} 
 \usepackage[svgnames]{xcolor}
 \usepackage[colorlinks=true, linkcolor=Black, urlcolor=Black]{hyperref}
 \usepackage{bookmark}
@@ -105,10 +107,13 @@ Equations of motion for integrating can be described like:
 As in liner case there would act same list of forces : external load force $F_{ext}$,
 internal forces of each element $F_{elem}$, and external pressure $F_{press}$ as well. In nonlinear case all 
 of these forces could get nonlinear changing over time. $F_{ext}$ and $F_{press}$ is 
-loaded from list of loads. Equation of $F_{elem}$ would change to nonlinear form:
+loaded from list of loads and their nonlinearity will be predicted out of this work. Equation of $F_{elem}$ would change to nonlinear form:
 \begin{equation}\label{eqn:nNx}
   N(x)= \int\limits_t\int\limits_A \sigma dAdt
 \end{equation}
+In this case cross sectional area and stiffness coefficient get nonlinearity. \par
+\subsection{Nonlinear cross sectional area}\par
+\subsection{Nonlinear stiffness coefficient}\par
 Geometry equation stays same as in linear case, but Hook Law doesnt work anymore. Mooney-Rivlin model would 
 replace it in nonlinear case.\par
 Mooney-Rivlin models are popular for modeling the large strain nonlinear behavior of incompressible materials. 
@@ -154,6 +159,9 @@ between displacements of nodes, to which element is connected:
 \begin{equation}\label{eqn:nNxWdispl}
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
-Equations of motion for integrating \eqref{eqn:Accel}, \eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear case.
+Equations of motion for integrating \eqref{eqn:Accel}, \eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear case \textcite{Picault2014}.
 \par
+\newpage
+\printbibliography[title=List of literature]
+
 \end{document}

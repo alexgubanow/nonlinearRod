@@ -63,11 +63,12 @@ to act forces in node\eqref{eqn:sumF} for each node in relation to their applica
    \overrightarrow{F_{elem}}\times[DCM]+
    \overrightarrow{F_{press}}\times[DCM]
 \end{equation}\par
-\section{Linear case}
 $F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for each time step is loaded
 from list of loads.\par
-$F_{elem}$ is sum of internal forces of each elemen, which acting in node. From each element becomes only half of force to 
-node, other half going to neigourh node. In case of 1D element system, internal force of each element can be express like
+$F_{press}$ is external pressure and can be described like force applied to element in local coordinates. Value of this force
+for each time step is loaded from list of loads. \par
+$F_{elem}$ is sum of internal forces of each element, which acting in node. From each element counts only half of force to 
+node, other half going to neighbour node. In case of 1D element system, internal force of each element can be express like
 axial force and it is equal to integral of stress over area:
 \begin{equation}\label{eqn:Nx}
   N(x)= \int\limits_A \sigma dA
@@ -75,10 +76,14 @@ axial force and it is equal to integral of stress over area:
 For 1D rod system $F_{elem}$ can be expressed like:
 \begin{equation}\label{eqn:Felem}
   F_{elem}= \sum_{e}N_e(x)/2
-\end{equation}
-$F_{press}$ is external pressure, can be described like force applied to element in local coordinates. Value of this force
-for each time step is loaded from list of loads. \par
-Element force becomes from physical deformation of element. Geometry equation\eqref{eqn:deformation} describing relation between initial length of
+\end{equation}\par
+\section{Linear case}\par
+
+Element force becomes from physical deformation of element. In linear case of study, deformation of element much less compare to
+element demesions and .
+
+\section{Nonlinear case}
+In nonlinear case Geometry equation\eqref{eqn:deformation} describing relation between initial length of
 element and lenght in $\Delta t$ state, by other words its describing deformation of element over time.
 \begin{equation}\label{eqn:deformation}
   \varepsilon=\frac{dU}{dx}=\frac{l-l_0}{l_0}
@@ -103,7 +108,6 @@ Equations of motion for integrating can be described like:
 \begin{equation}\label{eqn:Displ}
   U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
 \end{equation}
-\section{Nonlinear case}
 As in liner case there would act same list of forces : external load force $F_{ext}$,
 internal forces of each element $F_{elem}$, and external pressure $F_{press}$ as well. In nonlinear case all 
 of these forces could get nonlinear changing over time. $F_{ext}$ and $F_{press}$ is 

@@ -19,10 +19,11 @@ Vilnius Gediminas Technical University}
 \maketitle
 \pagebreak
 \chapter {1D rod system}\par
-Object of work is system of 1D rods. Object has been divided to discrete elements n1, n2 and n3.
+Object of work is system of 1D rods. System consists of discrete elements n1, n2 and n3.
 All elements are connected to each other through nodes n2, n3 and to special points through n1 and n4
 (figure \ref{fig:rodSystem}). Mathematical model of discrete system is expressed by equations of motion for nodes.
-As elements is 1D, nodes will be 1D as well. All system acting in global coordinate system $\{X, Y, Z\}$.\par
+As elements is 1D, nodes will be 1D as well. All system acting in global coordinate system $\{X, Y, Z\}$ and each 
+element acting in own local coordinate system $\{x,y,z\}$ (figure \ref{fig:nodeExtract}).\par
 \begin{figure}[ht]
   \centering
   \includesvg{systemAtworld}    

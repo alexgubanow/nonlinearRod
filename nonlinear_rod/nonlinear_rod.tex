@@ -18,55 +18,50 @@
 Vilnius Gediminas Technical University}
 \maketitle
 \pagebreak
-\chapter {1D rod system}
+\chapter {1D rod system}\par
 Object of work is system of 1D rods. Object has been divided to discrete elements n1, n2 and n3.
 All elements are connected to each other through nodes n2, n3 and to special points through n1 and n4
 (figure \ref{fig:rodSystem}). Mathematical model of discrete system is expressed by equations of motion for nodes.
 As elements is 1D, nodes will be 1D as well. All system acting in global coordinate system $\{X, Y, Z\}$.\par
-\par
-\begin{figure}[ht]\label{fig:rodSystem}
+\begin{figure}[ht]
   \centering
   \includesvg{systemAtworld}    
-  \caption{1D Rod system in global coordinate system}      
+  \caption{1D Rod system in global coordinate system}\label{fig:rodSystem}      
 \end{figure}
-The motion of nodes can be expressed by Newton's equation of motion. If only the normal component of the translational
-motion is considered, the equation reduces to\par
-\begin{equation}\label{eqn:motionEq}
-   F(x)-m\ddot{x}=0
-\end{equation}
-where $F(x)$ is axial force, $m$ – mass of node and $\ddot{x}$ is acceleration, initial conditions are: $x(0)=0$ and
-$\dot{x}(0)=V_0$.\par
-Mass of each node can be calculated, like sum of half mass of each element, which acting in node.
-$m_n=\sum_{e}m_e/2$
-\par
-\begin{figure}[ht]\label{fig:nodeExtract}
+In case that node does not have external interrupt, like pressure or other apllied force, schematic represent of node
+can be as on figure \ref{fig:nodeExtract}.\par
+\begin{figure}[ht]
   \centering
   \includesvg{nodeExtract}    
-  \caption{Extracting node from system}    
+  \caption{Extracting node from system}\label{fig:nodeExtract}
 \end{figure}
-All vector varibles of node should be calculated in global coordinate system and of element in own local coordinate 
-system(figure \ref{fig:nodeExtract}). For trasformation between coordinate systems direction cosine matrix
-(DCM)\eqref{eqn:DCM} can be used.
+From schematic representation of node comes that all vector varibles of node should be calculated in global coordinate 
+system and element varibles in own local coordinate system(figure \ref{fig:nodeExtract}). For trasformation between 
+coordinate systems direction cosine matrix (DCM)\eqref{eqn:DCM} can be used.
 \begin{equation}\label{eqn:DCM}
   DCM= \begin{bmatrix}
-    cos(Xx)&cos(Xy)&cos(Xz)\\
-    cos(Yx)&cos(Yy)&cos(Yz)\\
-    cos(Zx)&cos(Zy)&cos(Zz)\\
+    cos(X,x)&cos(X,y)&cos(X,z)\\
+    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
+    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
    \end{bmatrix} 
 \end{equation}
- where {X, Y, Z} is global coordinate system and {x, y, z} is local coordinate system.\par
+where {X, Y, Z} is global coordinate system and {x, y, z} is local coordinate system.\par
+According to primitive scheme of node \ref{fig:nodeExtract}, mass of each node can be calculated,
+like sum of half mass of each element, which acting in node.
+$m_n=\sum_{e}m_e/2$\par
+
 For investigating motion of system need to integrate \eqref{eqn:motionEq}. For this propose need to express all possible 
 to act forces in node\eqref{eqn:sumF} for each node in relation to their application place. 
 \begin{equation}\label{eqn:sumF}
-   \overrightarrow{F_n}=\sum\overrightarrow{F}=
-   \overrightarrow{F_{ext}}+
-   \overrightarrow{F_{elem}}\times[DCM]+
-   \overrightarrow{F_{press}}\times[DCM]
+   F_n(X)=
+   F_{ext}(X)+
+   F_{elem}(x, y, z)\times[DCM]+
+   F_{press}(x, y, z)\times[DCM]
 \end{equation}\par
 $F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for each time step is loaded
 from list of loads.\par
 $F_{press}$ is external pressure and can be described like force applied to element in local coordinates. Value of this force
-for each time step is loaded from list of loads. \par
+for each time step is loaded from list of loads.\par
 $F_{elem}$ is sum of internal forces of each element, which acting in node. From each element counts only half of force to 
 node, other half going to neighbour node. In case of 1D element system, internal force of each element can be express like
 axial force and it is equal to integral of stress over area:
@@ -77,14 +72,39 @@ For 1D rod system $F_{elem}$ can be expressed like:
 \begin{equation}\label{eqn:Felem}
   F_{elem}= \sum_{e}N_e(x)/2
 \end{equation}\par
-\section{Linear case}\par
+The motion of nodes can be expressed by Newton's equation of motion. As 1D element was choosed as discrete element, 
+only the normal component of the translational motion is considered, the equation reduces to\par
+\begin{equation}\label{eqn:motionEq}
+   F(x)-m\ddot{x}=0
+\end{equation}
+where $F(x)$ is axial force, equal to $F_n(X)$ for 1D rod system, $m$ – mass of node and $\ddot{x}$ is acceleration, initial conditions are: $x(0)=0$ and
+$\dot{x}(0)=V_0$.\par
+Equations of motion for Euler's scheme of integration can be described like:
+\begin{equation}\label{eqn:Accel}
+  \ddot{U}(\Delta t)=Fn(X)/m
+\end{equation}
+\begin{equation}\label{eqn:Velos}
+  \dot{U}(\Delta t)=\dot{U}(t)+\ddot{U}(\Delta t)\Delta t
+\end{equation}
+\begin{equation}\label{eqn:Displ}
+  U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
+\end{equation}
 
-Element force becomes from physical deformation of element. In linear case of study, deformation of element much less compare to
-element demesions and .
+\section{Linear case}\par
+Element force becomes from physical deformation of element. In linear case of study, deformation of element much
+less compare to element demesions and.
 
 \section{Nonlinear case}
-In nonlinear case Geometry equation\eqref{eqn:deformation} describing relation between initial length of
-element and lenght in $\Delta t$ state, by other words its describing deformation of element over time.
+Nonlinearity in main mean that element can get huge deformation compare to element demesions. Equation of $F_{elem}$
+in this case  would change to nonlinear form:
+\begin{equation}\label{eqn:nNx}
+  N(x)= \int\limits_t\int\limits_A \sigma dAdt
+\end{equation}
+In this case cross sectional area and stiffness coefficient get nonlinearity. \par
+\subsection{Nonlinear cross sectional area}\par
+Changing of cross sectional area over time is expressed by geometry equation\eqref{eqn:deformation}, which showing 
+relation between initial length of element and length in $\Delta t$ state, by other words its describing deformation 
+of element over time.
 \begin{equation}\label{eqn:deformation}
   \varepsilon=\frac{dU}{dx}=\frac{l-l_0}{l_0}
 \end{equation}
@@ -98,74 +118,57 @@ between displacements of nodes, to which element is connected:
 \begin{equation}\label{eqn:NxWdispl}
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
-Equations of motion for integrating can be described like:
-\begin{equation}\label{eqn:Accel}
-  \ddot{U}(\Delta t)=Fn/m
-\end{equation}
-\begin{equation}\label{eqn:Velos}
-  \dot{U}(\Delta t)=\dot{U}(t)+\ddot{U}(\Delta t)\Delta t
-\end{equation}
-\begin{equation}\label{eqn:Displ}
-  U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
-\end{equation}
-As in liner case there would act same list of forces : external load force $F_{ext}$,
-internal forces of each element $F_{elem}$, and external pressure $F_{press}$ as well. In nonlinear case all 
-of these forces could get nonlinear changing over time. $F_{ext}$ and $F_{press}$ is 
-loaded from list of loads and their nonlinearity will be predicted out of this work. Equation of $F_{elem}$ would change to nonlinear form:
-\begin{equation}\label{eqn:nNx}
-  N(x)= \int\limits_t\int\limits_A \sigma dAdt
-\end{equation}
-In this case cross sectional area and stiffness coefficient get nonlinearity. \par
-\subsection{Nonlinear cross sectional area}\par
-\subsection{Nonlinear stiffness coefficient}\par
-Geometry equation stays same as in linear case, but Hook Law doesnt work anymore. Mooney-Rivlin model would 
-replace it in nonlinear case.\par
-Mooney-Rivlin models are popular for modeling the large strain nonlinear behavior of incompressible materials. 
-According to thermodynamics laws, the 2nd Piola-Kirchhoff stress is the partial derivative of the 
-Helmholtz free energy with respect to the elastic part of the Green strain tensor (with a density thrown in).
-\[
-\boldsymbol{\sigma}^\text{PK2} = \rho_o \, {\partial \Psi \over \partial {\bf E}^\text{el} }
-\]
-The Helmholtz free energy contains thermal energy and mechanical strain energy.  
-But in most every discussion of Mooney-Rivlin coefficients, the thermal
-part is neglected, leaving only the mechanical part, \(W\).  (Actually, \(W\)
-is declared to represent \(\rho_o \Psi\), not just \(\Psi\)).  Second, since 
-all of the deformation of a hyperelastic material is elastic by definition,
-it is sufficient to write \({\bf E}^\text{el}\) simply as \({\bf E}\).
-This gives
-\[
-\boldsymbol{\sigma}^\text{PK2} = {\partial W \over \partial {\bf E} }
-\]
-But there is a challenge with this general approach.  It is the determination
-of off-diagonal (shear) terms.  As with the shear terms in Hooke's Law, they
-are not independent of the normal terms, but must be consistent with coordinate
-transformations that transform normal components into shears and vice-versa.
-And as with Hooke's Law, the resolution is to define the material behavior
-for the principal values and rely on coordinate transformations to give
-the appropriate corresponding behavior of the shear terms.
-\[
-\sigma_i^\text{PK2} = {\partial W \over \partial E_i }
-\]
-But alas, even this is not quite what is done in Mooney-Rivlin models.  Instead, derivatives
-are taken with respect to <i>stretch ratios</i>, \(\lambda\), which are 
-the ratios of initial and final lengths in the principal directions, 
-\((L_F / L_o)\).  So the stretch ratio is
-"one plus engineering strain,"  \(\lambda = 1 + \epsilon_{Eng}\), and 
-therefore \(\lambda - 1 = \epsilon_{Eng} = \Delta L \, / L_o\).
 
-According to Mooney-Rivlin model and geometry equation \eqref{eqn:deformation}, inner force can be changed to
-\begin{equation}\label{eqn:nNxFull}
-  N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l-l_0)
-\end{equation}
-where $l$ is current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.
-To be able to integrate equation of motion, need to express deformation in equation \eqref{eqn:nNxFull} by differenses 
-between displacements of nodes, to which element is connected:
-\begin{equation}\label{eqn:nNxWdispl}
-  N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
-\end{equation}\par
-Equations of motion for integrating \eqref{eqn:Accel}, \eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear case \textcite{Picault2014}.
-\par
+\subsection{Nonlinear stiffness coefficient}\par
+% Geometry equation stays same as in linear case, but Hook Law doesnt work anymore. Mooney-Rivlin model would 
+% replace it in nonlinear case.\par
+% Mooney-Rivlin models are popular for modeling the large strain nonlinear behavior of incompressible materials. 
+% According to thermodynamics laws, the 2nd Piola-Kirchhoff stress is the partial derivative of the 
+% Helmholtz free energy with respect to the elastic part of the Green strain tensor (with a density thrown in).
+% \[
+% \boldsymbol{\sigma}^\text{PK2} = \rho_o \, {\partial \Psi \over \partial {\bf E}^\text{el} }
+% \]
+% The Helmholtz free energy contains thermal energy and mechanical strain energy.  
+% But in most every discussion of Mooney-Rivlin coefficients, the thermal
+% part is neglected, leaving only the mechanical part, \(W\).  (Actually, \(W\)
+% is declared to represent \(\rho_o \Psi\), not just \(\Psi\)).  Second, since 
+% all of the deformation of a hyperelastic material is elastic by definition,
+% it is sufficient to write \({\bf E}^\text{el}\) simply as \({\bf E}\).
+% This gives
+% \[
+% \boldsymbol{\sigma}^\text{PK2} = {\partial W \over \partial {\bf E} }
+% \]
+% But there is a challenge with this general approach.  It is the determination
+% of off-diagonal (shear) terms.  As with the shear terms in Hooke's Law, they
+% are not independent of the normal terms, but must be consistent with coordinate
+% transformations that transform normal components into shears and vice-versa.
+% And as with Hooke's Law, the resolution is to define the material behavior
+% for the principal values and rely on coordinate transformations to give
+% the appropriate corresponding behavior of the shear terms.
+% \[
+% \sigma_i^\text{PK2} = {\partial W \over \partial E_i }
+% \]
+% But alas, even this is not quite what is done in Mooney-Rivlin models.  Instead, derivatives
+% are taken with respect to <i>stretch ratios</i>, \(\lambda\), which are 
+% the ratios of initial and final lengths in the principal directions, 
+% \((L_F / L_o)\).  So the stretch ratio is
+% "one plus engineering strain,"  \(\lambda = 1 + \epsilon_{Eng}\), and 
+% therefore \(\lambda - 1 = \epsilon_{Eng} = \Delta L \, / L_o\).
+
+% According to Mooney-Rivlin model and geometry equation \eqref{eqn:deformation}, inner force can be changed to
+% \begin{equation}\label{eqn:nNxFull}
+%   N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l-l_0)
+% \end{equation}
+% where $l$ is current length of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for element material.
+% To be able to integrate equation of motion, need to express deformation in equation \eqref{eqn:nNxFull} by differenses 
+% between displacements of nodes, to which element is connected:
+% \begin{equation}\label{eqn:nNxWdispl}
+%   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
+% \end{equation}\par
+% Equations of motion for integrating \eqref{eqn:Accel}, \eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear 
+% case\textcite{Picault2014}.
+% \par
 \newpage
-\printbibliography[title=List of literature]
+%\printbibliography[title=List of literature]
 
 \end{document}

@@ -17,14 +17,16 @@
 \author{Oleksandr Hubanov\\
 Vilnius Gediminas Technical University}
 \maketitle
-\pagebreak
-\chapter {1D rod system}\par Object of work is system of 1D rods. System
-consists of discrete elements n1, n2 and n3. All elements are connected to each
-other through nodes n2, n3 and to special points through n1 and n4 (figure
-\ref{fig:rodSystem}). Mathematical model of discrete system is expressed by
-equations of motion for nodes. As elements is 1D, nodes will be 1D as well. All
-system acting in global coordinate system $\{X, Y, Z\}$ and each element acting
-in own local coordinate system $\{x,y,z\}$ (figure \ref{fig:nodeExtract}).\par
+\tableofcontents
+\part{1D rod system}
+\chapter {Linear and nonlinear deformation}\par Object of work is system of 1D
+rods. System consists of discrete elements n1, n2 and n3. All elements are
+connected to each other through nodes n2, n3 and to special points through n1
+and n4 (figure \ref{fig:rodSystem}). Mathematical model of discrete system is
+expressed by equations of motion for nodes. As elements is 1D, nodes will be 1D
+as well. All system acting in global coordinate system $\{X, Y, Z\}$ and each
+element acting in own local coordinate system $\{x,y,z\}$ (figure
+\ref{fig:nodeExtract}).\par
 \begin{figure}[ht]
   \centering
   \includesvg{systemAtworld}    
@@ -144,8 +146,8 @@ Inner force\eqref{eqn:linNxFull} also become to nonlinear form:
   N(x)= \int\limits_t\int\limits_A \varepsilon EdA=EA\int\limits_t\varepsilon=\frac{EA}{l(\Delta t)}*(l(\Delta t)-l(t-\Delta t))
 \end{equation}
 where $l$ is current length of element, $l_0$ length of element at $t=0$, $E$ –
-Young’s modulus for element material.\par
-And nonlinear equantion of inner force for integration:
+Young’s modulus for element material.\par And nonlinear equantion of inner force
+for integration:
 \begin{equation}\label{eqn:nonlinNxWdispl}
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par

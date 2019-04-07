@@ -1,61 +1,4 @@
-\documentclass[12pt]{report}
-\setlength{\topmargin}{-1in}
-\setlength{\textheight}{9.8in}
-\setlength{\oddsidemargin}{.125in}
-\setlength{\textwidth}{6.8in} 
-\usepackage[backend=bibtex,style=numeric]{biblatex}
-\bibliography{../library} 
-\usepackage[svgnames]{xcolor}
-\usepackage[colorlinks=true, linkcolor=Black, urlcolor=Black]{hyperref}
-\usepackage{bookmark}
-\usepackage{mathtools}
-\usepackage{float}
-\usepackage{svg}
-\svgpath{./fig/}
-\begin{document}
-\title{Forces in rod}
-\author{Oleksandr Hubanov\\
-Vilnius Gediminas Technical University}
-\maketitle
-\tableofcontents
-\part{1D rod system}
-\chapter {Linear and nonlinear deformation}\par Object of work is system of 1D
-rods. System consists of discrete elements n1, n2 and n3. All elements are
-connected to each other through nodes n2, n3 and to special points through n1
-and n4 (figure \ref{fig:rodSystem}). Mathematical model of discrete system is
-expressed by equations of motion for nodes. As elements is 1D, nodes will be 1D
-as well. All system acting in global coordinate system $\{X, Y, Z\}$ and each
-element acting in own local coordinate system $\{x,y,z\}$ (figure
-\ref{fig:nodeExtract}).\par
-\begin{figure}[ht]
-  \centering
-  \includesvg{systemAtworld}    
-  \caption{1D Rod system in global coordinate system}\label{fig:rodSystem}      
-\end{figure}
-In case that node does not have external interrupt, like pressure or other
-apllied force, schematic represent of node can be as on figure
-\ref{fig:nodeExtract}.\par
-\begin{figure}[ht]
-  \centering
-  \includesvg{nodeExtract}    
-  \caption{Extracting node from system}\label{fig:nodeExtract}
-\end{figure}
-From schematic representation of node comes that all vector varibles of node
-should be calculated in global coordinate system and element varibles in own
-local coordinate system(figure \ref{fig:nodeExtract}). For trasformation between
-coordinate systems direction cosine matrix (DCM)\eqref{eqn:DCM} can be used.
-\begin{equation}\label{eqn:DCM}
-  DCM= \begin{bmatrix}
-    cos(X,x)&cos(X,y)&cos(X,z)\\
-    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
-    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
-   \end{bmatrix} 
-\end{equation}
-where {X, Y, Z} is global coordinate system and {x, y, z} is local coordinate
-system.\par According to primitive scheme of node \ref{fig:nodeExtract}, mass of
-each node can be calculated, like sum of half mass of each element, which acting
-in node. $m_n=\sum_{e}m_e/2$\par
-
+\section*{Linear deformation}
 For investigating motion of system need to integrate \eqref{eqn:motionEq}. For
 this propose need to express all possible to act forces in node\eqref{eqn:sumF}
 for each node in relation to their application place. 
@@ -99,10 +42,9 @@ be described like:
 \begin{equation}\label{eqn:Displ}
   U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
 \end{equation}
-
-\section{Linear case}\par Element force becomes from physical deformation of
+\par Element force becomes from physical deformation of
 element. In linear case of study, deformation of element much less compare to
-element demesions. It is expressed by linear geometry
+element dimensions. It is expressed by linear geometry
 equation\eqref{eqn:linDeformation}, which showing relation between initial
 length of element and length in $\Delta t$ state.
 \begin{equation}\label{eqn:linDeformation}
@@ -116,13 +58,12 @@ According to Hook law $\sigma=\varepsilon E$ and linear geometry equation
 where $l(\Delta t)$ is current length of element, $l_0$ length of element at
 $t=0$, $E$ – Young’s modulus for element material. To be able to integrate
 equation of motion, need to express deformation in equation
-\eqref{eqn:linNxFull} by differenses between displacements of nodes, to which
+\eqref{eqn:linNxFull} by differences between displacements of nodes, to which
 element is connected:
 \begin{equation}\label{eqn:linNxWdispl}
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
-
-\section{Nonlinear case}
+\section*{Nonlinear deformation}
 Nonlinearity in main mean that element can get huge deformation compare to
 element demesions. Equation of $F_{elem}$ in this case  would change to
 nonlinear form:
@@ -130,7 +71,9 @@ nonlinear form:
   N(x)= \int\limits_t\int\limits_A \sigma dAdt
 \end{equation}
 From this equantion comes that cross sectional area and stiffness coefficient
-will get nonlinearity. \par \subsection{Nonlinear cross sectional area}\par
+will get nonlinearity.
+ \par
+%\subsection{Nonlinear cross sectional area}\par
 Changing of cross sectional area over time for 1D element is changing its length
 over time. Linear geometry equation\eqref{eqn:linDeformation}, showing linear
 relations between length, because difference in $\Delta t$ state takes according
@@ -152,7 +95,7 @@ for integration:
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
 
-\subsection{Nonlinear stiffness coefficient}\par
+%\subsection{Nonlinear stiffness coefficient}\par
 % Geometry equation stays same as in linear case, but Hook Law doesnt work
 % anymore. Mooney-Rivlin model would replace it in nonlinear case.\par
 % Mooney-Rivlin models are popular for modeling the large strain nonlinear
@@ -204,6 +147,3 @@ for integration:
 % \eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear
 % case\textcite{Picault2014}. \par
 \newpage
-%\printbibliography[title=List of literature]
-
-\end{document}

@@ -1,0 +1,61 @@
+\chapter*{Simulation of tissue movement} 
+Investigation behavior of biological tissue can be done by estimating movement
+of it. Tissues of biological origin, usually had a weak structure and little
+stiffness.
+\cm{opisat podrobno strukturu i phiz svoystva, sunut kartinki}
+\par
+Such physical structure imposes restrictions on the possible tools in the
+measurement. Another possible problem is the limited number of measurement
+attempts. Such limitations of physical measurements call into question the
+possibility of such activities in general. An alternative to physical
+experiments is the numerical simulation of these experiments. There are a large
+number of different numerical modeling methods. All of them are derivatives of
+Finite Element Method(FEM) and Discrete Element Method(DEM).
+\cm{raspisat chto takoe FEM and DEM in basic way, just to show difference of}
+\par
+Based on the properties of the material of biological tissues, the most
+appropriate method is Mass - Spring modeling(MSM). This method based on ideas of
+DEM and basic element here is very know in mechanic simple 1D beam.
+\cm{have to show so pic about MSM, with explanation what is going on}
+Computational complexity of MSM is much less compare to FEM-based methods,
+because of less number of equations to integrating. This method have very wide
+using in computer games for calculating reality-looks hair or cloth movement in
+real time. 
+\par
+Object of work is system of 1D rods. System consists of discrete elements n1, n2
+and n3. All elements are connected to each other through nodes n2, n3 and to
+special points through n1 and n4 (figure \ref{fig:rodSystem}). Mathematical
+model of discrete system is expressed by equations of motion for nodes. As
+elements is 1D, nodes will be 1D as well. All system acting in global coordinate
+system $\{X, Y, Z\}$ and each element acting in own local coordinate system
+$\{x,y,z\}$ (figure \ref{fig:nodeExtract}).\par
+\begin{figure}[ht]
+  \centering
+  \includesvg{systemAtworld}    
+  \caption{1D Rod system in global coordinate system}\label{fig:rodSystem}      
+\end{figure}
+Let's try to describe minimal possible way to get simulation of such structure as
+ shown on figure \ref{fig:rodSystem}. First of all need to understand size of 
+In case that node does not have external interrupt, like pressure or other
+applied force, schematic represent of node can be as on figure
+\ref{fig:nodeExtract}.\par
+\begin{figure}[ht]
+  \centering
+  \includesvg{nodeExtract}    
+  \caption{Extracting node from system}\label{fig:nodeExtract}
+\end{figure}
+From schematic representation of node comes that all vector varibles of node
+should be calculated in global coordinate system and element varibles in own
+local coordinate system(figure \ref{fig:nodeExtract}). For trasformation between
+coordinate systems direction cosine matrix (DCM)\eqref{eqn:DCM} can be used.
+\begin{equation}\label{eqn:DCM}
+  DCM= \begin{bmatrix}
+    cos(X,x)&cos(X,y)&cos(X,z)\\
+    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
+    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
+   \end{bmatrix} 
+\end{equation}
+where {X, Y, Z} is global coordinate system and {x, y, z} is local coordinate
+system.\par According to primitive scheme of node \ref{fig:nodeExtract}, mass of
+each node can be calculated, like sum of half mass of each element, which acting
+in node. $m_n=\sum_{e}m_e/2$\par

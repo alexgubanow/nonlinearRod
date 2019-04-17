@@ -18,9 +18,12 @@ appropriate method is Mass - Spring modeling(MSM). This method based on ideas of
 DEM and basic element here is very know in mechanic simple 1D beam.
 \cm{have to show so pic about MSM, with explanation what is going on}
 Computational complexity of MSM is much less compare to FEM-based methods,
-because of less number of equations to integrating. This method have very wide
-using in computer games for calculating reality-looks hair or cloth movement in
-real time. 
+because of less number of equations to integrating. This important advantage and
+physics way have method describes basic element gave to MSM very wide using in
+computer games for calculating reality-looks hair or cloth movement in real
+time. Also compare to FEM-based methods, MSM gave possibility to make parallel
+calculating of each time step. For some real example, such calculation could be
+done on Nvidia GPU, by using. \cite{Rasmusson2008} \cite{Amorim2012}
 \par
 Object of work is system of 1D rods. System consists of discrete elements n1, n2
 and n3. All elements are connected to each other through nodes n2, n3 and to
@@ -44,9 +47,9 @@ applied force, schematic represent of node can be as on figure
   \includesvg{nodeExtract}    
   \caption{Extracting node from system}\label{fig:nodeExtract}
 \end{figure}
-From schematic representation of node comes that all vector varibles of node
-should be calculated in global coordinate system and element varibles in own
-local coordinate system(figure \ref{fig:nodeExtract}). For trasformation between
+From schematic representation of node comes that all vector variables of node
+should be calculated in global coordinate system and element variables in own
+local coordinate system(figure \ref{fig:nodeExtract}). For transformation between
 coordinate systems direction cosine matrix (DCM)\eqref{eqn:DCM} can be used.
 \begin{equation}\label{eqn:DCM}
   DCM= \begin{bmatrix}

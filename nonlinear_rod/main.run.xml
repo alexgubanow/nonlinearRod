@@ -57,7 +57,10 @@
       <file>biblatex.def</file>
       <file>standard.bbx</file>
       <file>numeric.bbx</file>
-      <file>numeric.cbx</file>
+      <file>numeric-comp.bbx</file>
+      <file>ieee.bbx</file>
+      <file>numeric-comp.cbx</file>
+      <file>ieee.cbx</file>
       <file>biblatex.cfg</file>
       <file>english.lbx</file>
     </requires>
@@ -83,7 +86,7 @@
       <file>main-blx.bib</file>
     </requires>
     <requires type="editable">
-      <file>sdvsc.bib</file>
+      <file>../library.bib</file>
     </requires>
     <requires type="static">
       <file>biblatex.bst</file>

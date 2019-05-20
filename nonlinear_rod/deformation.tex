@@ -1,7 +1,4 @@
 %Понятие линейной деформации, допущения, понятия и эфекты
-%Нелинейное деформ стержня, по времени
-%Описать допущение что модуль упрогости = нелинейность 
-
 \section*{Linear deformation}
 For investigating motion of any mechanical system need to integrate equation of
 motion\eqref{eqn:motionEq}. For this propose need to express all acting forces in
@@ -77,7 +74,8 @@ nonlinear form:
 From this equantion comes that cross sectional area and stiffness coefficient
 will get nonlinearity.
  \par
-%\subsection{Nonlinear cross sectional area}\par
+ %Нелинейное деформ стержня, по времени
+ %Описать допущение что модуль упрогости = нелинейность
 Changing of cross sectional area over time for 1D element is changing its length
 over time. Linear geometry equation\eqref{eqn:linDeformation}, showing linear
 relations between length, because difference in $\Delta t$ state takes according
@@ -99,53 +97,48 @@ for integration:
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
 
-\subsection{Nonlinear behavior model}\par
-Mooney-Rivlin models are popular for modeling the large strain nonlinear
-behavior of incompressible materials. According to thermodynamics laws, the
-2nd Piola-Kirchhoff stress is the partial derivative of the Helmholtz free
-energy with respect to the elastic part of the Green strain tensor (with a
-density thrown in).
-\[
-\boldsymbol{\sigma}^\text{PK2} = \rho_o \, {\partial \Psi \over \partial {\bf
-E}^\text{el} }
-\]
-The Helmholtz free energy contains thermal energy and mechanical strain
-energy.  
-But in most every discussion of Mooney-Rivlin coefficients, the thermal part
-is neglected, leaving only the mechanical part, \(W\).  (Actually, \(W\) is
-declared to represent \(\rho_o \Psi\), not just \(\Psi\)).  Second, since all
-of the deformation of a hyperelastic material is elastic by definition, it is
-sufficient to write \({\bf E}^\text{el}\) simply as \({\bf E}\). This gives
-\[
-\boldsymbol{\sigma}^\text{PK2} = {\partial W \over \partial {\bf E} }
-\]
-But there is a challenge with this general approach.  It is the determination
-of off-diagonal (shear) terms.  As with the shear terms in Hooke's Law, they
-are not independent of the normal terms, but must be consistent with
-coordinate transformations that transform normal components into shears and
-vice-versa. And as with Hooke's Law, the resolution is to define the material
-behavior for the principal values and rely on coordinate transformations to
-give the appropriate corresponding behavior of the shear terms.
-\[
-\sigma_i^\text{PK2} = {\partial W \over \partial E_i }
-\]
-But alas, even this is not quite what is done in Mooney-Rivlin models.
-Instead, derivatives are taken with respect to <i>stretch ratios</i>,
-\(\lambda\), which are the ratios of initial and final lengths in the
-principal directions, \((L_F / L_o)\).  So the stretch ratio is "one plus
-engineering strain,"  \(\lambda = 1 + \epsilon_{Eng}\), and therefore
-\(\lambda - 1 = \epsilon_{Eng} = \Delta L \, / L_o\).
-
-According to Mooney-Rivlin model and geometry equation
-\eqref{eqn:deformation}, inner force can be changed to
-\begin{equation}\label{eqn:nNxFull} N(x)= \int\limits_A \varepsilon EdA=EA\int
-\varepsilon=\frac{EA}{l_0}*(l-l_0) \end{equation} where $l$ is current length
-of element, $l_0$ length of element at $t=0$, $E$ – Young’s modulus for
-element material. To be able to integrate equation of motion, need to express
-deformation in equation \eqref{eqn:nNxFull} by differenses between
-displacements of nodes, to which element is connected:
-\begin{equation}\label{eqn:nNxWdispl} N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
-\end{equation}\par Equations of motion for integrating \eqref{eqn:Accel},
-\eqref{eqn:Velos},\eqref{eqn:Displ} would be same as in linear
-case\textcite{Picault2014}. \par
+%Хорда описана ломаной линией из элементов первого порядка, 
+Mechanic equivalent of fibrous tissue could be described as system of 1D rods.
+Example of such flat 2D system are shown on figure \ref{fig:nodeExtract}.
+\begin{figure}[H]
+  \centering
+  \includesvg{systemAtworld}    
+  \caption{1D Rod system in global coordinate system}\label{fig:rodSystem}      
+\end{figure} 
+System consists of discrete elements $e_1$, $e_2$ and $e_3$. All elements are
+connected to each other through nodes $n_2$, $n_3$ and to special points through
+$n_1$ and $n_4$. Each element $e_n$ of system has own orientation in global
+coordinate system. 
+\cm{pic about loc glob coords of one element}
+In case that node does not have external interrupt, like pressure or other
+ applied force, schematic represent of node can be as on figure
+ \ref{fig:nodeExtract}.\par
+\begin{figure}[H]
+  \centering
+  \includesvg{nodeExtract}    
+  \caption{Extracted node from system}\label{fig:nodeExtract}
+\end{figure}
+Mathematical model of discrete system is expressed by equations of nodes motion.
+As elements is 1D, nodes will be 1D as well. All system acting in global
+coordinate system $\{X, Y, Z\}$ and each element acting in own local coordinate
+system $\{x,y,z\}$.
+\par
+Let's try to describe minimal possible way to get simulation of such structure
+ as shown on figure \ref{fig:rodSystem}. From schematic representation of node
+ comes that all vector variables of node should be calculated in global
+ coordinate system and element variables in own local coordinate system(figure
+ \ref{fig:nodeExtract}). For transformation between coordinate systems direction
+ cosine matrix (DCM)\eqref{eqn:DCM} can be used.
+\begin{equation}\label{eqn:DCM}
+  DCM= \begin{bmatrix}
+    cos(X,x)&cos(X,y)&cos(X,z)\\
+    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
+    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
+   \end{bmatrix} 
+\end{equation}
+where $\{X, Y, Z\}$ is global coordinate system and $\{x,y,z\}$ is local coordinate
+system.\par According to primitive scheme of node \ref{fig:nodeExtract}, mass of
+each node can be calculated, like sum of half mass of each element, which acting
+in node. $m_n=\sum_{e}m_e/2$\par
+%расчет давления жидкости от скорости на всю длину элемента под углом от направления жидкости
 \newpage

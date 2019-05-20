@@ -123,49 +123,5 @@ cloth movement in real time. Modelling by using MSM could be parallel calculated
 on each time step.\cite{Rasmusson2008} \cite{Amorim2012}
 \par
 %В расчете целого клапана берется один стержень, существующие варианты расчетов всей системы и как в них рассчитывается хорда
-Mechanic equivalent of fibrous tissue could be described as system of 1D rods.
-Example of such flat 2D system are shown on figure \ref{fig:nodeExtract}.
-\begin{figure}[H]
-  \centering
-  \includesvg{systemAtworld}    
-  \caption{1D Rod system in global coordinate system}\label{fig:rodSystem}      
-\end{figure} 
-System consists of discrete elements $e_1$, $e_2$ and $e_3$. All elements are
-connected to each other through nodes $n_2$, $n_3$ and to special points through
-$n_1$ and $n_4$. Each element $e_n$ of system has own orientation in global
-coordinate system. 
-\cm{pic about loc glob coords of one element}
-In case that node does not have external interrupt, like pressure or other
- applied force, schematic represent of node can be as on figure
- \ref{fig:nodeExtract}.\par
-\begin{figure}[H]
-  \centering
-  \includesvg{nodeExtract}    
-  \caption{Extracted node from system}\label{fig:nodeExtract}
-\end{figure}
 %Как движется кровь, описать механику (давление и скорость) сравнить преимущ от расчета давления от скорости
 %Цель- сравнить одну стержень и систему
-%Хорда описана ломаной линией из элементов первого порядка, 
-%расчет давления жидкости от скорости на всю длину элемента под углом от направления жидкости
-Mathematical model of discrete system is expressed by equations of nodes motion.
-As elements is 1D, nodes will be 1D as well. All system acting in global
-coordinate system $\{X, Y, Z\}$ and each element acting in own local coordinate
-system $\{x,y,z\}$.
-\par
-Let's try to describe minimal possible way to get simulation of such structure
- as shown on figure \ref{fig:rodSystem}. From schematic representation of node
- comes that all vector variables of node should be calculated in global
- coordinate system and element variables in own local coordinate system(figure
- \ref{fig:nodeExtract}). For transformation between coordinate systems direction
- cosine matrix (DCM)\eqref{eqn:DCM} can be used.
-\begin{equation}\label{eqn:DCM}
-  DCM= \begin{bmatrix}
-    cos(X,x)&cos(X,y)&cos(X,z)\\
-    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
-    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
-   \end{bmatrix} 
-\end{equation}
-where $\{X, Y, Z\}$ is global coordinate system and $\{x,y,z\}$ is local coordinate
-system.\par According to primitive scheme of node \ref{fig:nodeExtract}, mass of
-each node can be calculated, like sum of half mass of each element, which acting
-in node. $m_n=\sum_{e}m_e/2$\par

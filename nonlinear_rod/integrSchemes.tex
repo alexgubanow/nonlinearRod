@@ -1,1 +1,63 @@
 \section*{Integration schemes}
+Euler first order explisit
+$v(t+\Delta t) = v(t) + a(t) * \Delta t $
+$x(t+\Delta t) = x(t) + v(t) * \Delta t $
+\par
+Runge-Kutta schemes find application within discrete element simulations. While being of high
+accuracy they are computationally expensive.
+$kr_1 = v(t), kv_1 = a(t)$
+$r_2 = r(t) + \frac{1}{2} * \Delta t * kr_1, v_2 = v(t) + \frac{1}{2} * \Delta t * kv_1$
+$kr_2 = v_2, kv_2 = a(t + \Delta t)$
+$r_3 = r(t) + \frac{1}{2} * \Delta t * kr_2, v_3 = v(t) + \frac{1}{2} * \Delta t * kv_2$
+$kr_3 = v_3, kv_3 = a(t + 2\Delta t)$
+$r_4 = r(t) + \frac{1}{2} * \Delta t * kr_3, v_4 = v(t) + \frac{1}{2} * \Delta t * kv_3$
+$kr_4 = v_4, kv_3 = a(t + 3\Delta t)$
+$r(t+\Delta t) = r(t) + \Delta t * (\frac{1}{6} kr_1 + \frac{1}{3} kr_2 + \frac{1}{3} kr_3 + \frac{1}{6} kr_4)$
+$v(t+\Delta t) = v(t) + \Delta t * (\frac{1}{6} kv_1 + \frac{1}{3} kv_2 + \frac{1}{3} kv_3 + \frac{1}{6} kv_4)$
+\par
+The central difference scheme, also known as velocity Verlet is a very widely used integration
+method of second order. This was initially proposed by Cundall and Strack (1979) and adopted by
+several other authors. Velocities in the upcoming time step t +t/2 and positions at t +t are
+calculated as
+$v(t + \Delta t/2) = v(t + \Delta t/2) +a(t - \Delta t/2) * \Delta t$
+$x(t + \Delta t) = x(t) +v(t + \Delta t/2) * \Delta t$
+\par
+predictor–corrector schemes very commonly used for molecular dynamics and discrete element
+applications are Gear’s schemes. They are based on three stages, whereas in addition to the
+predictor and corrector step known from the Adams-method an evaluation step is added. Schemes
+considered here are the third order Gear’s method (GPC3) and the fourth order Gear’s method (GPC4).
+In the prediction step positions and their higher derivatives are calculated based on Taylor series
+expansions as
+$c(t+\Delta t, p) = c(t)$
+$b(t+\Delta t, p) = b(t) + c(t) *\Delta t$
+$a(t+\Delta t, p) = a(t) + b(t) *\Delta t^2 + \frac{1}{6} * c(t) *\Delta t^2$
+$v(t+\Delta t, p) = v(t) + a(t) *\Delta t + \frac{1}{2} * b(t) *\Delta t^2 + \frac{1}{6} * c(t) *\Delta t^3$
+$x(t+\Delta t, p) = x(t) + v(t) * \Delta t + \frac{1}{2} * a(t) *\Delta t^2 + \frac{1}{6} * b(t) *\Delta t^3 + \frac{1}{24} * c(t) *\Delta t^4$
+with the first and second derivative of the accelerations calculated as
+for GPC3:
+$b(t) = \frac{\mathrm d a(t)}{\mathrm d t}$
+$c(t) = 0$
+for GPC4:
+$b(t) = \frac{\mathrm d a(t)}{\mathrm d t}$
+$c(t) = \frac{\mathrm d b(t)}{\mathrm d t}$
+\par
+In the evaluation step the difference in the accelerations calculated based on the acceleration
+$a(t+ \Delta t, p)$ and the acceleration $a(t+\Delta t)$ calculated from positions $x(t+\Delta t,
+p)$ and velocities $v(t+\Delta t, p)$ is obtained by
+$\Delta a = a(t+\Delta t) − a(t+\Delta t, p)$
+\par
+In the following, correction step positions and their higher derivatives are calculated based on
+their values from the previous time step and the obtained difference in acceleration as
+$x(t+\Delta t) = x(t+\Delta t, p) + k1 * \Delta a * \Delta t^2$
+$v(t+\Delta t) = v(t+\Delta t, p) + k2 * \Delta a * \Delta t$
+$a(t+\Delta t) = a(t+\Delta t, p) + k3 * \Delta a$
+$b(t+\Delta t) = b(t+\Delta t, p) + k4 * \frac{\Delta a}{\Delta t}$
+$c(t+\Delta t) = c(t+\Delta t, p) + k5 * \frac{\Delta a}{\Delta t^2}$
+\par
+Gear’s scheme parameters k1-k5
+for GPC3:
+$k_1 = 1/12, k_2 = 5/12, k_3 = 1, k_4 = 1, k_5 = 0$
+for GPC4:
+$k_1 = 19/240, k_2 = 3/8, k_3 = 1, k_4 = 3/2, k_5 = 1$
+\par
+\newpage

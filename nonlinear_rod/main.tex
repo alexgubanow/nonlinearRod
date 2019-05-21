@@ -1,0 +1,47 @@
+\documentclass[12pt]{report}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{9.8in}
+\setlength{\oddsidemargin}{.125in}
+\setlength{\textwidth}{6.8in} 
+\setlength{\parindent}{3em}
+\pretolerance=150
+\newcommand{\cm}[1]{\par\textbf{{#1}}\par}
+\usepackage[
+    %backend=biber, 
+    natbib=true,
+    style=numeric,
+    sorting=none
+]{biblatex}
+\addbibresource{../library.bib}
+
+\usepackage{csquotes}
+\usepackage[svgnames]{xcolor}
+\usepackage[colorlinks=true, citecolor=Black, linkcolor=Black, urlcolor=Black]{hyperref}
+\usepackage{bookmark}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{svg}
+\svgpath{./fig/}
+\begin{document}
+\title{Biological Tissue Movement}
+\author{Oleksandr Hubanov\\
+Vilnius Gediminas Technical University}
+\maketitle
+%\tableofcontents
+%\part{Physic of biological tissues}
+\input{intro.tex}
+\newpage
+\input{goal.tex}
+\newpage
+\input{msm.tex}
+\newpage
+\input{fluidMotion.tex}
+\newpage
+\input{integrSchemes.tex}
+\newpage
+\input{results.tex}
+\newpage
+
+\printbibliography[title=List of literature]
+\end{document}

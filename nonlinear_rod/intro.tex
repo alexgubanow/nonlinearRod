@@ -9,7 +9,7 @@ and the ventricles of the heart.
   \centering
   \includegraphics[width=0.4\textwidth]{./fig/mt.png}
     \caption{Mitral valve structure}
-    \label{fig:normalMT}
+    \label{fig:MT}
 \end{figure}
 Mechanical properties
 Chordae:
@@ -43,44 +43,40 @@ atrium. In abnormal conditions, blood may flow backwards through the valve
 Rheumatic heart disease often affects the mitral valve; the valve may also
 prolapse with age, and be affected by infective endocarditis. The mitral valve
 is named after the mitre of a bishop, which resembles its flaps.
-\begin{figure}[H]
+\begin{figure}[H]\label{fig:workingMT}      
   \centering
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.4\textwidth}\label{fig:openMT}
     \includegraphics[width=\textwidth]{./fig/openMT.png}
-      \caption{Opened state of mitral valve}
-      \label{fig:normalMT}
+      \caption{Opened state of mitral valve}      
   \end{subfigure}
   ~
   ~ %add desired spacing between images, e. g. ~, \quad, \qquad, \hfill etc. 
     %(or a blank line to force the subfigure onto a new line)
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.4\textwidth}\label{fig:closedMT}  
     \includegraphics[width=\textwidth]{./fig/closedMT.png}
-      \caption{Closed state of mitral valve}
-      \label{fig:prolapseMT}
+      \caption{Closed state of mitral valve}    
   \end{subfigure}
-  \caption{Mitral valve working cycle}\label{fig:rodSystem}      
+  \caption{Mitral valve working cycle}
 \end{figure} 
 
 Mitral valve prolapse (MVP) is a valvular heart disease characterized by the
 displacement of an abnormally thickened mitral valve leaflet into the left
 atrium during systole. By other words, it is a condition in which the two flaps
 of the mitral valve doesn't close smoothly and evenly, but instead bulge
-(prolapse) upward into the left atrium.\cite{Hayek2005}
-\begin{figure}[H]
+(prolapse) upward into the left atrium.\cite{Hayek2005a}
+\begin{figure}[H]\label{fig:compareMT}
   \centering
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.4\textwidth}\label{fig:normalMT}
     \includegraphics[width=\textwidth]{./fig/normalMT.png}
-      \caption{Normal mitral valve}
-      \label{fig:normalMT}
+      \caption{Normal mitral valve}      
   \end{subfigure}
   ~
   ~ 
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.4\textwidth}\label{fig:prolapseMT}
     \includegraphics[width=\textwidth]{./fig/prolapseMT.png}
-      \caption{Prolapse mitral valve}
-      \label{fig:prolapseMT}
+      \caption{Prolapse mitral valve}      
   \end{subfigure}
-  \caption{Comparison of the normal valve and prolapse}\label{fig:rodSystem}      
+  \caption{Comparison of the normal valve and prolapse}      
 \end{figure} 
 Providing the surgeon with an anatomically and biomechanically accurate
 computional model of a particular patient's mitral heart valve could enable
@@ -113,7 +109,7 @@ closed MV after surgery.
 Based on the properties of the material of biological tissues and review of
 existing projects, the most appropriate method is Mass - Spring modeling(MSM). This
 method based on ideas of DEM and basic element here is very know in mechanic
-simple one dimensional(1D) beam.
+simple one dimensional(1D) beam.\ref{eqn:sacdd}
 \cm{have to show so pic about MSM, with explanation what is going on}
 Computational complexity of MSM is much less compare to FEM-based methods,
 because of less number of equations to integrate on each time step. This
@@ -123,5 +119,20 @@ cloth movement in real time. Modelling by using MSM could be parallel calculated
 on each time step.\cite{Rasmusson2008} \cite{Amorim2012}
 \par
 %В расчете целого клапана берется один стержень, существующие варианты расчетов всей системы и как в них рассчитывается хорда
+\begin{figure}[H]\label{fig:pc1}
+  \centering
+  \includegraphics[width=0.2\textwidth]{./fig/pc1.png}
+    \caption{Displacement of papillary muscle over cardiac cycle}    
+\end{figure}
+\begin{figure}[H]\label{fig:pc2}
+  \centering
+  \includegraphics[width=0.2\textwidth]{./fig/pc2.png}
+    \caption{Displacement of papillary muscle over cardiac cycle}    
+\end{figure}
+\begin{figure}[H]\label{fig:pc3}
+  \centering
+  \includegraphics[width=0.3\textwidth]{./fig/pc3.png}
+    \caption{Displacement of papillary muscle over cardiac cycle}    
+\end{figure}
 %Как движется кровь, описать механику (давление и скорость) сравнить преимущ от расчета давления от скорости
 %Цель- сравнить одну стержень и систему

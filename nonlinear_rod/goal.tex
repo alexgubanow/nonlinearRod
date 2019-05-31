@@ -12,7 +12,21 @@ System consists of discrete elements $e_1$, $e_2$ and $e_3$. All elements are
 connected to each other through nodes $n_2$, $n_3$ and to special points through
 $n_1$ and $n_4$. Each element $e_n$ of system has own orientation in global
 coordinate system. 
-\cm{pic about loc glob coords of one element}
+From schematic representation of node comes that all vector variables of node should be calculated
+ in global coordinate system and element variables in own local coordinate system(figure
+ \ref{fig:nodeExtract}). For transformation between coordinate systems direction cosine matrix
+ (DCM)\eqref{eqn:DCM} can be used.
+\begin{equation}\label{eqn:DCM}
+  DCM= \begin{bmatrix}
+    cos(X,x)&cos(X,y)&cos(X,z)\\
+    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
+    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
+   \end{bmatrix} 
+\end{equation}
+where $\{X, Y, Z\}$ is global coordinate system and $\{x,y,z\}$ is local coordinate
+system.\par According to primitive scheme of node \ref{fig:nodeExtract}, mass of
+each node can be calculated, like sum of half mass of each element, which acting
+in node. $m_n=\sum_{e}m_e/2$\par
 In case that node does not have external interrupt, like pressure or other
  applied force, schematic represent of node can be as on figure
  \ref{fig:nodeExtract}.\par

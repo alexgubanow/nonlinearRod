@@ -8,44 +8,52 @@ For investigating motion of any mechanical system need to integrate equation of
 motion\eqref{eqn:motionEq}. For this propose need to express all acting forces in
 node\eqref{eqn:sumF} for each node in relation to their application place. 
 \begin{equation}\label{eqn:sumF}
-   F_n(X)=
-   F_{ext}(X)+
-   F_{elem}(x, y, z)\times[DCM]+
-   F_{press}(x, y, z)\times[DCM]
+   F_n(X)= F_{ext}(X) + \sum{F_{elem}(x, y, z)\times[DCM]} + F_{d} + F_{press}(x, y, z)\times[DCM]
 \end{equation}\par
-$F_{ext}$ is external load force, applied to node in global coordinates. Value
-of this force for each time step is loaded from list of loads.\par $F_{press}$
-is external pressure and can be described like force applied to element in local
-coordinates. Value of this force for each time step is loaded from list of
-loads.\par $F_{elem}$ is sum of internal forces of each element, which acting in
-node. From each element counts only half of force to node, other half going to
-neighbour node. In case of 1D element system, internal force of each element can
+$F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for
+each time step is loaded from list of loads.\par $F_{press}$ is external pressure and can be
+described like force applied to element in local coordinates.\par $F_{elem}$ is sum of internal
+forces of each element, which acting in node. From each element counts only half of force to node,
+other half going to neighbour node. In case of 1D element system, internal force of each element can
 be express like axial force and it is equal to integral of stress over area:
 \begin{equation}\label{eqn:Nx}
   N(x)= \int\limits_A \sigma dA
 \end{equation}
 For 1D rod system $F_{elem}$ can be expressed like:
+\cm{Is it has to be divided by 2? in this case how to calc mass of node?}
 \begin{equation}\label{eqn:Felem}
-  F_{elem}= \sum_{e}N_e(x)/2
+  F_{elem} = \sum_{e}N_e(x)/2
 \end{equation}\par
-The motion of nodes can be expressed by Newton's equation of motion. As 1D
+The motion of nodes can be expressed by Newton's equation of motion\ref{eqn:motionEq}. As 1D
 element was choosed as discrete element, only the normal component of the
 translational motion is considered, the equation reduces to\par
 \begin{equation}\label{eqn:motionEq}
-   F(x)-m\ddot{x}=0
+  m\ddot{x} + kx + c\dot{x} = F_n
 \end{equation}
-where $F(x)$ is axial force, equal to $F_n(X)$ for 1D rod system, $m$ – mass of
-node and $\ddot{x}$ is acceleration, initial conditions are: $x(0)=0$ and
-$\dot{x}(0)=V_0$.\par Equations of motion for Euler's scheme of integration can
-be described like:
+where $F_n$ is force acting in node $n$, $m$ – mass of node and $\ddot{x}$ is acceleration, $k$ –
+stiffness coefficient of node, $x$ is displacement of node and $c$ – damping coefficient of node,
+$\dot{x}$ is velosity of node, initial conditions are: $x(0)=0$ and $\dot{x}(0)=V_0$. According to
+\ref{eqn:sumF}, $kx$ are described by $\sum{F_{elem}}$, $c\dot{x}$ are described by $F_{press}$ and
+motion equantion will become to:
+\begin{equation}\label{eqn:motionEqNodeStatic}
+  F_{press} + \sum{F_{elem}} + m\ddot{x} = F_n
+\end{equation}
+where $F_{elem}$ is sum of node's elements forces, $m$ – mass of node and $\ddot{x}$ is
+acceleration. In static case $m\ddot{x}$ equal to zero, due zero acceleration, because no external
+force is applied and equantion of node is balansed. But if external force are applied, motion will
+start, motion equation will become not balansed\ref{eqn:motionEqDynamic}, mass start to act as inertia. 
+\begin{equation}\label{eqn:motionEqDynamic}
+  F_{press} + \sum{F_{elem}} + m\ddot{x} = F_n + F_{ext}
+\end{equation}\par 
+Equations of motion for Euler's scheme of integration can be described like:
 \begin{equation}\label{eqn:Accel}
-  \ddot{U}(\Delta t)=Fn(X)/m
+  \ddot{x}(\Delta t)=Fn(X)/m
 \end{equation}
 \begin{equation}\label{eqn:Velos}
-  \dot{U}(\Delta t)=\dot{U}(t)+\ddot{U}(\Delta t)\Delta t
+  \dot{x}(\Delta t)=\dot{x}(t)+\ddot{x}(\Delta t)\Delta t
 \end{equation}
 \begin{equation}\label{eqn:Displ}
-  U(\Delta t)=U(t)+\dot{U}(\Delta t)\Delta t
+  x(\Delta t)=x(t)+\dot{x}(\Delta t)\Delta t
 \end{equation}
 \par Element force becomes from physical deformation of
 element. In linear case of study, deformation of element much less compare to
@@ -53,22 +61,22 @@ element dimensions. It is expressed by linear geometry
 equation\eqref{eqn:linDeformation}, which showing relation between initial
 length of element and length in $\Delta t$ state.
 \begin{equation}\label{eqn:linDeformation}
-  \varepsilon=\frac{dU}{dx}=\frac{l(\Delta t)-l_0}{l_0}
+  \varepsilon=\frac{dU}{dx}=\frac{l(\Delta t)-l(t)}{l(t)}
 \end{equation}
 According to Hook law $\sigma=\varepsilon E$ and linear geometry equation
-\eqref{eqn:linDeformation}, inner force can be changed to:
+\eqref{eqn:linDeformation}, inner force can be described as:
 \begin{equation}\label{eqn:linNxFull}
-  N(x)= \int\limits_A \varepsilon EdA=EA\int \varepsilon=\frac{EA}{l_0}*(l(\Delta t)-l_0)
+  N(x)= \int\limits_{Al} \varepsilon EdldA=EA\int\limits_l \varepsilon dl=\frac{EA}{l(t)}*(l(t + \Delta t)-l(t))
 \end{equation}
-where $l(\Delta t)$ is current length of element, $l_0$ length of element at
-$t=0$, $E$ – Young’s modulus for element material. To be able to integrate
-equation of motion, need to express deformation in equation
-\eqref{eqn:linNxFull} by differences between displacements of nodes, to which
-element is connected:
+where $l(\Delta t)$ is current length of element, $l(t)$ length of element at previuous time moment,
+$E$ – Young’s modulus for element material, $A$ – volume of element. To be able to integrate
+equation of motion, need to express deformation in equation \eqref{eqn:linNxFull} by differences
+between displacements of nodes, to which element is connected:
 \begin{equation}\label{eqn:linNxWdispl}
-  N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
+  N(x)=\frac{EA}{l(t)}*(U_{i}-U_{j})
 \end{equation}\par
 %Нелинейное деформ стержня, по времени
+%Описать допущение что модуль упрогости = нелинейность
 \subsection*{Nonlinear deformation}
 Nonlinearity in main mean that element can get huge deformation compare to
 element demesions. Equation of $F_{elem}$ in this case  would change to
@@ -100,24 +108,42 @@ for integration:
   N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
 \end{equation}\par
 
-%Описать допущение что модуль упрогости = нелинейность
 \par
 Let's try to describe minimal possible way to get simulation of such structure
- as shown on figure \ref{fig:rodSystem}. From schematic representation of node
- comes that all vector variables of node should be calculated in global
- coordinate system and element variables in own local coordinate system(figure
- \ref{fig:nodeExtract}). For transformation between coordinate systems direction
- cosine matrix (DCM)\eqref{eqn:DCM} can be used.
-\begin{equation}\label{eqn:DCM}
-  DCM= \begin{bmatrix}
-    cos(X,x)&cos(X,y)&cos(X,z)\\
-    cos(Y,x)&cos(Y,y)&cos(Y,z)\\
-    cos(Z,x)&cos(Z,y)&cos(Z,z)\\
-   \end{bmatrix} 
-\end{equation}
-where $\{X, Y, Z\}$ is global coordinate system and $\{x,y,z\}$ is local coordinate
-system.\par According to primitive scheme of node \ref{fig:nodeExtract}, mass of
-each node can be calculated, like sum of half mass of each element, which acting
-in node. $m_n=\sum_{e}m_e/2$\par
-%расчет давления жидкости от скорости на всю длину элемента под углом от направления жидкости
+ as shown on figure \ref{fig:rodSystem}. 
+
+\begin{algorithm}[H]\label{algo:calcNodeMovement}
+  initialization\;
+  \tcp{Preform integration nodes movement over time}
+  \tcp{Initial state is $x(0)=\dot{x}(0)=\ddot{x}(0)=0$}
+  \tcp{Iterate over time}
+  \While{$t < t_{end} - 1$}{
+    \tcp{Iterate over nodes}
+    \ForEach{node in nodes}
+    {
+      \tcp{get external force loading}
+      $F_{ext}$ = getFext(node, t)\;
+      \tcp{push $F_{ext}$ into current node force $F_n$}
+      $F_n$ = $F_n + F_{ext}$\;
+      \tcp{calc $F_{elm}$ from previous displacement}
+      \ForEach{link in neighbours}
+      {
+        $F_{elm}$ = getFelm(node, link)\;
+        \tcp{convert $F_{elm}$ from local to global coordinates}
+        $F_{elm}G$ = $F_{elm}\times[DCM]$\;
+        \tcp{push $F_{elm}G$ into current node force $F_n$}
+        $F_n$ = $F_n + F_{elm}G$\;
+      }
+      \tcp{calc pressure force}
+      $F_{press}$ = getFpress(node, t)\;
+      \tcp{convert $F_{elm}$ from local to global coordinates}
+      $F_{press}G$ = $F_{press}\times[DCM]$\;
+      \tcp{push $F_{elm}G$ into current node force $F_n$}
+      $F_n$ = $F_n + F_{press}G$\;
+      \tcp{integrate collected $F_n$ to get derivatives of displacement for next time step}
+      $[x(t + \Delta t), \dot{x}(t + \Delta t), \ddot{x}(t+ \Delta t)]$ = integrate($F_n, x(t), \dot{x}(t), \ddot{x}(t)$ )
+    }
+  }
+ \end{algorithm}
+  
 \newpage

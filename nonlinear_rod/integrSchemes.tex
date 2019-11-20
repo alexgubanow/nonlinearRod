@@ -1,5 +1,5 @@
 \section*{Integration schemes}
-Euler first order explisit
+Euler first order explicit
 \begin{align}\label{eqn:euler}
     \begin{split}
     &v(t+\Delta{t}) = v(t) + a(t) * \Delta{t}\\
@@ -7,23 +7,6 @@ Euler first order explisit
     \end{split}
 \end{align}
 \par
-Runge-Kutta schemes find application within discrete element simulations. While being of high
-accuracy they are computationally expensive.
-\begin{align}\label{eqn:rk4}
-    \begin{split}
-        &kr_1 = v(t), kv_1 = a(t)\\
-        &r_2 = r(t) + \frac{1}{2} * \Delta{t} * kr_1, v_2 = v(t) + \frac{1}{2} * \Delta{t} * kv_1\\
-        &kr_2 = v_2, kv_2 = a(t + \Delta{t})\\
-        &r_3 = r(t) + \frac{1}{2} * \Delta{t} * kr_2, v_3 = v(t) + \frac{1}{2} * \Delta{t} * kv_2\\
-        &kr_3 = v_3, kv_3 = a(t + 2\Delta{t})\\
-        &r_4 = r(t) + \frac{1}{2} * \Delta{t} * kr_3, v_4 = v(t) + \frac{1}{2} * \Delta{t} * kv_3\\
-        &kr_4 = v_4, kv_3 = a(t + 3\Delta{t})\\
-        &r(t+\Delta{t}) = r(t) + \Delta{t} * (\frac{1}{6} kr_1 + \frac{1}{3} kr_2 + 
-        \frac{1}{3} kr_3 + \frac{1}{6} kr_4)\\
-        &v(t+\Delta{t}) = v(t) + \Delta{t} * (\frac{1}{6} kv_1 + \frac{1}{3} kv_2 + 
-        \frac{1}{3} kv_3 + \frac{1}{6} kv_4)\\
-    \end{split}
-\end{align}
 The central difference scheme, also known as velocity Verlet is a very widely used integration
 method of second order. This was initially proposed by Cundall and Strack (1979) and adopted by
 several other authors. Velocities in the upcoming time step $t + \Delta{t}/2 $ and positions at

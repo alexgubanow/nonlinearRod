@@ -1,9 +1,12 @@
-\documentclass[12pt]{report}
+\documentclass[11pt, oneside, a4paper]{article}
+%\documentclass[11pt, oneside, a4paper, twocolumn]{article}
+\usepackage[utf8]{inputenc}
 \setlength{\topmargin}{-1in}
-\setlength{\textheight}{9.8in}
-\setlength{\oddsidemargin}{.125in}
-\setlength{\textwidth}{6.8in} 
-\setlength{\parindent}{3em}
+\setlength{\textheight}{10.2in}
+\setlength{\textwidth}{7.1in} 
+\setlength{\parindent}{2em}
+\setlength{\footskip}{0.6in}
+\setlength{\oddsidemargin}{-0.3in}
 \pretolerance=150
 \newcommand{\cm}[1]{\par\textbf{{#1}}\par}
 \usepackage[
@@ -29,20 +32,18 @@
 \author{Oleksandr Hubanov\\
 Vilnius Gediminas Technical University}
 \maketitle
-%\tableofcontents
-%\part{Physic of biological tissues}
-%\input{intro.tex}
+\input{intro.tex}
 \newpage
 \input{goal.tex}
 \newpage
 \input{msm.tex}
 \newpage
-%\input{fluidMotion.tex}
+\input{fluidMotion.tex}
 \newpage
-%\input{integrSchemes.tex}
+\input{integrSchemes.tex}
 \newpage
-%\input{results.tex}
+\input{results.tex}
 \newpage
 
-%\printbibliography[title=List of literature]
+\printbibliography[title=List of literature]
 \end{document}

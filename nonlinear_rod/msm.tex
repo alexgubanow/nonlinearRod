@@ -26,7 +26,7 @@ For 1D rod system $F_{elem}$ can be expressed like:
   F_{elem} = \sum_{e}N_e(x)/2
 \end{equation}\par
 The motion of nodes can be expressed by Newton's equation of motion\ref{eqn:motionEq}. As 1D
-element was choosed as discrete element, only the normal component of the
+element was selected as discrete element, only the normal component of the
 translational motion is considered, the equation reduces to\par
 \begin{equation}\label{eqn:motionEq}
   m\vec{\ddot{x}} + k\vec{x} + c\vec{\dot{x}} = \vec{F_n}
@@ -76,6 +76,10 @@ between displacements of nodes, to which element is connected:
 \begin{equation}\label{eqn:linNxWdispl}
   N(x)=\frac{EA}{l(t)}*(x_{i}(t)-x_{j}(t))
 \end{equation}\par
+To words about mechanical properties of valve components, poisson ratio $\nu$ is same, 0.49 for all.
+Mean value of chordae length $L ~ 0,025 m$ and diameter $d ~ 0,001 m$. Chordae has density $\rho$
+= 1040 kg/m3 and stiffness $E = 2000 N/m$, when leaflets has $\rho$ = 1.06E3 kg/m3 and 
+$E = 2 MPa$ (Anterior leaflet), $E = 1 MPa$ (Posterior leaflet)\par
 %Нелинейное деформ стержня, по времени
 %Описать допущение что модуль упрогости = нелинейность
 %\subsection*{Nonlinear deformation}
@@ -113,7 +117,7 @@ between displacements of nodes, to which element is connected:
 Let's try to describe minimal possible way to get simulation of such structure
 as shown on figure \ref{fig:rodSystem}.
 
-\begin{algorithm}[H]\label{algo:calcNodeMovement}
+\begin{algorithm}\label{algo:calcNodeMovement}
   initialization\;
   \tcp{Preform integration nodes movement over time}
   \tcp{Initial state is $x(0)=\dot{x}(0)=\ddot{x}(0)=0$}

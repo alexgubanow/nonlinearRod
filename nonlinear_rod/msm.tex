@@ -4,11 +4,12 @@
 %Учет напрвления элементов
 \section*{Mass Spring Model}
 \subsection*{Linear deformation}
-For investigating motion of any mechanical system need to integrate equation of
-motion\eqref{eqn:motionEq}. For this propose need to express all acting forces in
-node\eqref{eqn:sumF} for each node in relation to their application place. 
+For investigating motion of any mechanical system comes to integration motion equation of
+discrete parts of this system. In case of MSM, system described as nodes connected to each other 
+by 1D rod elements\ref{fig:nodeExtract}. \eqref{eqn:motionEq}. For this propose need to express all acting forces in
+node\eqref{eqn:sumF} for each node in relation to their application place.
 \begin{equation}\label{eqn:sumF}
-   \vec{F}_n= \vec{F}_{ext} + \sum\vec{F}_{elem}\times[DCM] + \vec{F}_{press}\times[DCM]
+  \vec{F}_n= \vec{F}_{ext} + \sum\vec{F}_{elem}\times[DCM] + \vec{F}_{press}\times[DCM]
 \end{equation}\par
 $F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for
 each time step is loaded from list of loads.\par $F_{press}$ is external pressure and can be
@@ -41,10 +42,10 @@ motion equantion will become to:
 where $F_{elem}$ is sum of node's elements forces, $m$ – mass of node and $\ddot{x}$ is
 acceleration. In static case $m\ddot{x}$ equal to zero, due zero acceleration, because no external
 force is applied and equantion of node is balansed. But if external force are applied, motion will
-start, motion equation will become not balansed\ref{eqn:motionEqDynamic}, mass start to act as inertia. 
+start, motion equation will become not balansed\ref{eqn:motionEqDynamic}, mass start to act as inertia.
 \begin{equation}\label{eqn:motionEqDynamic}
   \vec{F}_{press} + \sum\vec{F}_{elem} + m\vec{\ddot{x}} = F_n + \vec{F}_{ext}
-\end{equation}\par 
+\end{equation}\par
 Equations of motion for Euler's scheme of integration can be described like:
 \begin{equation}\label{eqn:Accel}
   \vec{\ddot{x}}(t +\Delta t)=\vec{F}_n/m
@@ -110,7 +111,7 @@ between displacements of nodes, to which element is connected:
 
 \par
 Let's try to describe minimal possible way to get simulation of such structure
- as shown on figure \ref{fig:rodSystem}. 
+as shown on figure \ref{fig:rodSystem}.
 
 \begin{algorithm}[H]\label{algo:calcNodeMovement}
   initialization\;
@@ -144,6 +145,6 @@ Let's try to describe minimal possible way to get simulation of such structure
       $[x(t + \Delta t), \dot{x}(t + \Delta t), \ddot{x}(t+ \Delta t)]$ = integrate($F_n, x(t), \dot{x}(t), \ddot{x}(t)$ )
     }
   }
- \end{algorithm}
-  
+\end{algorithm}
+
 \newpage

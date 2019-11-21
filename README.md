@@ -63,10 +63,10 @@ To get working VScode+Latex+WSL
     ],
 	
 	
-	
+```bash	
 wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar xvzf install-tl-unx.tar.gz
-cd 
+cd install-tl-20191120
 sudo ./install-tl
 PATH=/usr/local/texlive/2019/bin/x86_64-linux:$PATH; export PATH
 MANPATH=/usr/local/texlive/2019/texmf-dist/doc/man:$MANPATH; export MANPATH
@@ -83,3 +83,4 @@ sudo cpan Log::Log4perl
 sudo cpan Log::Dispatch::File
 sudo cpan YAML::Tiny
 sudo cpan File::HomeDir
+```

@@ -78,7 +78,14 @@ sudo add-apt-repository ppa:inkscape.dev/stable
 sudo apt-get update
 sudo apt-get install inkscape
 sudo apt install pdflatex
-https://marketplace.visualstudio.com/items?itemName=nickfode.latex-formatter
+sudo apt install git
+git clone https://github.com/cmhughes/latexindent.pl.git
+cd latexindent.pl/
+sudo apt-get install cmake
+sudo apt-get update && sudo apt-get install build-essential
+mkdir build && cd build
+cmake ../path-helper-files
+sudo make install
 sudo cpan Log::Log4perl
 sudo cpan Log::Dispatch::File
 sudo cpan YAML::Tiny

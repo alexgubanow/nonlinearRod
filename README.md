@@ -78,3 +78,8 @@ sudo add-apt-repository ppa:inkscape.dev/stable
 sudo apt-get update
 sudo apt-get install inkscape
 sudo apt install pdflatex
+https://marketplace.visualstudio.com/items?itemName=nickfode.latex-formatter
+sudo cpan Log::Log4perl
+sudo cpan Log::Dispatch::File
+sudo cpan YAML::Tiny
+sudo cpan File::HomeDir

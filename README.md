@@ -64,6 +64,9 @@ To get working VScode+Latex+WSL
 	
 	
 ```bash	
+sudo add-apt-repository ppa:inkscape.dev/stable
+sudo apt-get update
+sudo apt-get install inkscape
 wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz
 tar xvzf install-tl-unx.tar.gz
 cd install-tl-20191120
@@ -74,9 +77,7 @@ INFOPATH=/usr/local/texlive/2019/texmf-dist/doc/info:$INFOPATH; export INFOPATH
 sudo apt install texlive-bibtex-extra
 sudo apt install texlive-latex-extra
 sudo apt install texlive-science
-sudo add-apt-repository ppa:inkscape.dev/stable
-sudo apt-get update
-sudo apt-get install inkscape
+sudo apt install latexmk
 sudo apt install pdflatex
 sudo apt install git
 git clone https://github.com/cmhughes/latexindent.pl.git

@@ -2,18 +2,25 @@
 %Движение узлов 
 %Описать силы в узлах от стержней
 %Учет напрвления элементов
-\section*{Mass Spring Model}
-\subsection*{Linear deformation}
-For investigating motion of any mechanical system comes to integration motion equation of
-discrete parts of this system. In case of MSM, system described as nodes connected to each other 
-by 1D rod elements\ref{fig:nodeExtract}. \eqref{eqn:motionEq}. For this propose need to express all acting forces in
-node\eqref{eqn:sumF} for each node in relation to their application place.
+\section*{Discrete model}
+Linear deformation
+~\par
+Investigating motion of any mechanical system comes to integration motion equation of
+discrete parts of this system. The motion of nodes can be expressed by Newton's equation of
+motion\ref{eqn:motionEq}. As 1D element was selected as discrete element, only the normal 
+component of the translational motion is considered, the equation reduces to\par
+\begin{equation}\label{eqn:motionEq}
+  m\vec{\ddot{x}} + k\vec{x} + c\vec{\dot{x}} = \vec{F_{inertia}}
+\end{equation}
+where $F_{inertia}$ is inertia force, which is acting in node $n$, $m$ – mass of node and $\ddot{x}$ is acceleration, $k$ –
+stiffness coefficient of node, $x$ is displacement of node and $c$ – damping coefficient of node,
+$\dot{x}$ is velosity of node, initial conditions are: $x(0)=0$ and $\dot{x}(0)=V_0$.
+If express $kx$ and $c\dot{x}$ by $\sum{F_{elem}}$,  then motion equantion will become to:
 \begin{equation}\label{eqn:sumF}
-  \vec{F}_n= \vec{F}_{ext} + \sum\vec{F}_{elem}\times[DCM] + \vec{F}_{press}\times[DCM]
-\end{equation}\par
+  \vec{F}_{inertia}= \vec{F}_{ext} - \sum\vec{F}_{elem}
+\end{equation}
 $F_{ext}$ is external load force, applied to node in global coordinates. Value of this force for
-each time step is loaded from list of loads.\par $F_{press}$ is external pressure and can be
-described like force applied to element in local coordinates.\par $F_{elem}$ is sum of internal
+each time step is loaded from list of loads. $F_{elem}$ is sum of internal
 forces of each element, which acting in node. From each element counts only half of force to node,
 other half going to neighbour node. In case of 1D element system, internal force of each element can
 be express like axial force and it is equal to integral of stress over area:
@@ -21,31 +28,9 @@ be express like axial force and it is equal to integral of stress over area:
   N(x)= \int\limits_A \sigma dA
 \end{equation}
 For 1D rod system $F_{elem}$ can be expressed like:
-\cm{Is it has to be divided by 2? in this case how to calc mass of node?}
 \begin{equation}\label{eqn:Felem}
-  F_{elem} = \sum_{e}N_e(x)/2
-\end{equation}\par
-The motion of nodes can be expressed by Newton's equation of motion\ref{eqn:motionEq}. As 1D
-element was selected as discrete element, only the normal component of the
-translational motion is considered, the equation reduces to\par
-\begin{equation}\label{eqn:motionEq}
-  m\vec{\ddot{x}} + k\vec{x} + c\vec{\dot{x}} = \vec{F_n}
+  F_{elem} = \sum_{e}N_e(x)
 \end{equation}
-where $F_n$ is force acting in node $n$, $m$ – mass of node and $\ddot{x}$ is acceleration, $k$ –
-stiffness coefficient of node, $x$ is displacement of node and $c$ – damping coefficient of node,
-$\dot{x}$ is velosity of node, initial conditions are: $x(0)=0$ and $\dot{x}(0)=V_0$. According to
-\ref{eqn:sumF}, $kx$ are described by $\sum{F_{elem}}$, $c\dot{x}$ are described by $F_{press}$ and
-motion equantion will become to:
-\begin{equation}\label{eqn:motionEqNodeStatic}
-  \vec{F}_{press} + \sum{F_{elem}} + m\vec{\ddot{x}} = \vec{F}_n
-\end{equation}
-where $F_{elem}$ is sum of node's elements forces, $m$ – mass of node and $\ddot{x}$ is
-acceleration. In static case $m\ddot{x}$ equal to zero, due zero acceleration, because no external
-force is applied and equantion of node is balansed. But if external force are applied, motion will
-start, motion equation will become not balansed\ref{eqn:motionEqDynamic}, mass start to act as inertia.
-\begin{equation}\label{eqn:motionEqDynamic}
-  \vec{F}_{press} + \sum\vec{F}_{elem} + m\vec{\ddot{x}} = F_n + \vec{F}_{ext}
-\end{equation}\par
 Equations of motion for Euler's scheme of integration can be described like:
 \begin{equation}\label{eqn:Accel}
   \vec{\ddot{x}}(t +\Delta t)=\vec{F}_n/m

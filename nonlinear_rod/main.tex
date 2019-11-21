@@ -1,4 +1,4 @@
-\documentclass[11pt, oneside, a4paper]{article}
+\documentclass[11pt, oneside, a4paper, twocolumn]{article}
 %\documentclass[11pt, oneside, a4paper, twocolumn]{article}
 \usepackage[utf8]{inputenc}
 \setlength{\topmargin}{-1in}
@@ -9,12 +9,7 @@
 \setlength{\oddsidemargin}{-0.3in}
 \pretolerance=150
 \newcommand{\cm}[1]{\par\textbf{{#1}}\par}
-\usepackage[
-    %backend=biber, 
-    natbib=true,
-    style=numeric,
-    sorting=none
-]{biblatex}
+\usepackage[ backend=bibtex, natbib=true, style=numeric, sorting=none]{biblatex}
 \addbibresource{../library.bib}
 
 \usepackage{csquotes}
@@ -25,8 +20,8 @@
 \usepackage{float}
 \usepackage{subcaption}
 \usepackage{svg}
+\setsvg{inkscapeexe=dbus-run-session, inkscapeopt=inkscape -D -z}
 \usepackage{algorithm2e}
-\svgpath{./fig/}
 \begin{document}
 \title{Biological Tissue Movement}
 \author{Oleksandr Hubanov\\
@@ -34,7 +29,7 @@ Vilnius Gediminas Technical University}
 \maketitle
 \input{intro.tex}
 \newpage
-\input{goal.tex}
+\input{matmodel.tex}
 \newpage
 \input{msm.tex}
 \newpage
@@ -45,5 +40,5 @@ Vilnius Gediminas Technical University}
 \input{results.tex}
 \newpage
 
-\printbibliography[title=List of literature]
+%\printbibliography[title=List of literature]
 \end{document}

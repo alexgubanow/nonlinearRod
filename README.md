@@ -92,3 +92,5 @@ sudo cpan Log::Dispatch::File
 sudo cpan YAML::Tiny
 sudo cpan File::HomeDir
 ```
+
+suggeted extensions: Rewrap

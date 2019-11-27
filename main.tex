@@ -1,16 +1,19 @@
 \documentclass[11pt, oneside, a4paper, twocolumn]{article}
 %\documentclass[11pt, oneside, a4paper, twocolumn]{article}
 \usepackage[utf8]{inputenc}
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+\usepackage{indentfirst}
 \setlength{\topmargin}{-1in}
 \setlength{\textheight}{10.2in}
-\setlength{\textwidth}{7.1in} 
-\setlength{\parindent}{2em}
+%\setlength{\textwidth}{7.1in} 
 \setlength{\footskip}{0.6in}
-\setlength{\oddsidemargin}{-0.3in}
+%\setlength{\oddsidemargin}{-0.3in}
 \pretolerance=150
 \newcommand{\cm}[1]{\par\textbf{{#1}}\par}
 \usepackage[ backend=bibtex, natbib=true, style=numeric, sorting=none]{biblatex}
-\addbibresource{../library.bib}
+\addbibresource{library.bib}
 
 \usepackage{csquotes}
 \usepackage[svgnames]{xcolor}
@@ -20,7 +23,7 @@
 \usepackage{float}
 \usepackage{subcaption}
 \usepackage{svg}
-\setsvg{inkscapeexe=dbus-run-session, inkscapeopt=inkscape -D -z}
+%\setsvg{inkscapeexe=dbus-run-session, inkscapeopt=inkscape}
 \usepackage{algorithm2e}
 \begin{document}
 \title{Biological Tissue Movement}
@@ -28,17 +31,11 @@
 Vilnius Gediminas Technical University}
 \maketitle
 \input{intro.tex}
-\newpage
 \input{matmodel.tex}
-\newpage
 \input{msm.tex}
-\newpage
 \input{fluidMotion.tex}
-\newpage
 \input{integrSchemes.tex}
-\newpage
 \input{results.tex}
-\newpage
 
-%\printbibliography[title=List of literature]
+\printbibliography[title=List of literature]
 \end{document}

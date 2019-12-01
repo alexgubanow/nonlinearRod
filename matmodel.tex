@@ -1,0 +1,87 @@
+\section*{Mathematical model}
+The motion of chordae as motion of physical object can be expressed by Newton's
+equation of motion:
+\begin{equation}\label{eqn:motionEq}
+  m\vec{\ddot{x}} + k\vec{x} + c\vec{\dot{x}} = \vec{F}
+\end{equation}
+where $F$ is internal force of object, $m$ – mass of object and $\ddot{x}$ is
+acceleration, $k$ – stiffness coefficient of object, $x$ is displacement of
+object and $c$ – damping coefficient of object, $\dot{x}$ is velosity of object.
+\begin{figure}[H]\label{fig:chordaeInCoords}
+  \centering
+  \includesvg[width=0.8\columnwidth]{fig/chordaeInCoords}
+  \caption{Chordae tindae in global coordinate system}
+\end{figure}
+Initial conditions are: $x(0)=0$ and $\dot{x}(0)=V_0$.
+Acceleration could be known from \eqref{eqn:motionEq} as:
+\begin{equation}\label{eqn:Accel}
+  \vec{\ddot{x}}=\vec{F}/m
+\end{equation}
+Than Euler's scheme of integration can be described like:
+\begin{equation}\label{eqn:Velos}
+  \vec{\dot{x}}(t +\Delta t)=\vec{\dot{x}}(t)+\vec{\ddot{x}}(t)\Delta t
+\end{equation}
+\begin{equation}\label{eqn:Displ}
+  \vec{x}(t +\Delta t)=\vec{x}(t)+\vec{\dot{x}}(t)\Delta t
+\end{equation}\par
+\subsection*{Linear deformation}
+Internal object force becomes from physical deformation of object it self. In
+linear case of study, deformation of element much less compare to element
+dimensions. It is expressed by linear geometry
+equation\eqref{eqn:linDeformation}, which showing relation between initial
+length of element and length in $\Delta t$ state.
+\begin{equation}\label{eqn:linDeformation}
+  \varepsilon=\frac{dU}{dx}=\frac{l(\Delta t)-l(t)}{l(t)}
+\end{equation}
+According to Hook law $\sigma=\varepsilon E$ and linear geometry equation
+\eqref{eqn:linDeformation}, inner force can be described as:
+\begin{equation}\label{eqn:linNxFull}
+  \begin{split}
+    N(x) &= \int\limits_{Al} \varepsilon EdldA=EA\int\limits_l \varepsilon dl \\
+    &=\frac{EA}{l(t)}*(l(t + \Delta t)-l(t))
+  \end{split}
+\end{equation}
+where $l(\Delta t)$ is current length of chordae, $l(t)$ length of chordae at
+previuous time moment, $E$ – Young’s modulus for chordae, $A$ – volume of
+chordae. To be able to integrate equation of motion, need to express deformation
+in equation \eqref{eqn:linNxFull} by differences between displacements of nodes,
+to which chordae is connected:
+\begin{equation}\label{eqn:linNxWdispl}
+  N(x)=\frac{EA}{l(t)}*(x_{i}(t)-x_{j}(t))
+\end{equation}\par
+
+%Нелинейное деформ стержня, по времени
+%Описать допущение что модуль упрогости = нелинейность
+\subsection*{Nonlinear deformation}
+Nonlinearity in main mean that chordae can get huge deformation compare to
+its demesions. Equation of $F_{elem}$ in this case  would change to
+nonlinear form:
+\begin{equation}\label{eqn:nonlinNx}
+  N(x)= \int\limits_t\int\limits_A \sigma dAdt
+\end{equation}
+From this equantion comes that cross sectional area and stiffness coefficient
+will get nonlinearity.
+\par
+Changing of cross sectional area over time of chordae is changing its length
+over time. Linear geometry equation\eqref{eqn:linDeformation}, showing linear
+relations between length, because difference in $\Delta t$ state takes according
+initial length of chordae. In case of huge deformation need to recalculate
+length of chordae on each time step and take difference of displacement
+according to previous time step. In end of geometry equation become to nonlinear
+form:
+\begin{equation}\label{eqn:nonlinDeformation}
+  \varepsilon=\frac{dU}{dx}=\frac{l(\Delta t)-l(t-\Delta t)}{l(\Delta t)}
+\end{equation}
+Inner force\eqref{eqn:linNxFull} also become to nonlinear form:
+\begin{equation}\label{eqn:nonlinNxFull}
+  \begin{split}
+    N(x) &=  \int\limits_t\int\limits_A \varepsilon EdA=EA\int\limits_t\varepsilon \\
+    &=\frac{EA}{l(\Delta t)}*(l(\Delta t)-l(t-\Delta t))
+  \end{split}
+\end{equation}
+where $l$ is current length of element, $l_0$ length of element at $t=0$, $E$ –
+Young’s modulus for element material.\par And nonlinear equantion of inner force
+for integration:
+\begin{equation}\label{eqn:nonlinNxWdispl}
+  N(x)=\frac{EA}{l_0}*(U_{i}-U_{j})
+\end{equation}\par

@@ -1,0 +1,41 @@
+\documentclass[11pt, oneside, a4paper]{article}
+%\documentclass[11pt, oneside, a4paper, twocolumn]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[english,russian]{babel}
+\edef\restoreparindent{\parindent=\the\parindent\relax}
+\usepackage{parskip}
+\restoreparindent
+\usepackage{indentfirst}
+\setlength{\topmargin}{-1in}
+\setlength{\textheight}{10.2in}
+\setlength{\textwidth}{7.1in} 
+\setlength{\footskip}{0.6in}
+\setlength{\oddsidemargin}{-0.3in}
+\pretolerance=150
+\newcommand{\cm}[1]{\par\textbf{{#1}}\par}
+\usepackage[ backend=bibtex, natbib=true, style=numeric, sorting=none]{biblatex}
+\addbibresource{../library.bib}
+
+\usepackage{csquotes}
+\usepackage[svgnames]{xcolor}
+\usepackage[colorlinks=true, citecolor=Black, linkcolor=Black, urlcolor=Black]{hyperref}
+\usepackage{bookmark}
+\usepackage{mathtools}
+\usepackage{float}
+\usepackage{subcaption}
+\usepackage{svg}
+\usepackage{algorithm2e}
+\begin{document}
+\selectlanguage{russian}
+\title{Оценка влияния шага интегрирования на результат расчета гибкой стержневой нити}
+\author{Oleksandr Hubanov\\
+Vilnius Gediminas Technical University}
+\maketitle
+
+\input{intro.tex}
+\input{whatIntegrMethodUsed.tex}
+\input{comparingDeltaT.tex}
+\input{resultsOverview.tex}
+
+\printbibliography[title=List of literature]
+\end{document}

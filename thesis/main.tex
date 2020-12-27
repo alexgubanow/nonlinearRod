@@ -1,5 +1,5 @@
-%\documentclass[11pt, oneside, a4paper]{article}
-\documentclass[11pt, oneside, a4paper, twocolumn]{article}
+\documentclass[11pt, oneside, a4paper]{report}
+
 \usepackage[utf8]{inputenc}
 \usepackage[english]{babel}
 \edef\restoreparindent{\parindent=\the\parindent\relax}
@@ -13,7 +13,9 @@
 \setlength{\oddsidemargin}{-0.3in}
 \pretolerance=150
 \newcommand{\cm}[1]{\par\textcolor{red}{\textbf{{#1}}}\par}
-\usepackage[ backend=bibtex, natbib=true, style=numeric, sorting=none]{biblatex}
+\newcommand{\noNumChapter}[1]{\chapter*{{#1}}\addcontentsline{toc}{chapter}{{#1}}}
+\newcommand{\noNumSection}[1]{\section*{{#1}}\addcontentsline{toc}{section}{{#1}}}
+\usepackage[backend=bibtex, natbib=true, style=numeric, sorting=none]{biblatex}
 \addbibresource{../library.bib}
 
 \usepackage{csquotes}
@@ -25,19 +27,25 @@
 \usepackage{subcaption}
 \usepackage{svg}
 \usepackage{algorithm2e}
+\usepackage{hyperref}
 \begin{document}
-\title{Explicit time integration methods applied to nonlinear beam model}
-\author{Oleksandr Hubanov\\
-Vilnius Gediminas Technical University}
-\maketitle
-\input{abstract.tex}
-\input{intro.tex}
-\input{modellingApproach.tex}
-\input{mathmodel.tex}
-\input{integrationTechnics.tex}
-\input{numericalExperiment.tex}
-\input{comparingResults.tex}
-\input{discussion.tex}
+\title{Numerical Model of Dynamic Deformation of Fibrous Structural Membranes}
 
-\printbibliography[title=References]
+\author{Oleksandr Hubanov\\ 
+\textit{Supervisor} \\ prof. habil. dr. Rimantas Kačianauskas
+\\
+\\
+Vilnius Gediminas Technical University}
+))))
+\maketitle
+\tableofcontents
+
+\noNumChapter{Introduction}
+\noNumSection{Medical side review}
+\noNumSection{Mechanical side review}
+\chapter{Developing discrete numerical model}
+\chapter{Developing method of preparing medical data}
+\chapter{Practical usage}
+
+\printbibliography[title=List of literature]
 \end{document}

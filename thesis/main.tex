@@ -15,6 +15,7 @@
 \newcommand{\cm}[1]{\par\textcolor{red}{\textbf{{#1}}}\par}
 \newcommand{\noNumChapter}[1]{\chapter*{{#1}}\addcontentsline{toc}{chapter}{{#1}}}
 \newcommand{\noNumSection}[1]{\section*{{#1}}\addcontentsline{toc}{section}{{#1}}}
+\newcommand{\noNumSubSection}[1]{\subsection*{{#1}}\addcontentsline{toc}{subsection}{{#1}}}
 \usepackage[backend=bibtex, natbib=true, style=numeric, sorting=none]{biblatex}
 \addbibresource{../library.bib}
 
@@ -36,16 +37,55 @@
 \\
 \\
 Vilnius Gediminas Technical University}
-))))
 \maketitle
 \tableofcontents
 
-\noNumChapter{Introduction}
-\noNumSection{Medical side review}
-\noNumSection{Mechanical side review}
-\chapter{Developing discrete numerical model}
-\chapter{Developing method of preparing medical data}
-\chapter{Practical usage}
+\noNumChapter{INTRODUCTION}%5-6pages
+\noNumSection{Problem Formulation}
+\noNumSection{Relevance of the Thesis}
+\noNumSection{The Object of Research}
+\noNumSection{The Aim of the Thesis}
+\noNumSection{The Tasks of the Thesis}
+\noNumSection{Research Methodology}
+\noNumSection{Scientific Novelty of the Thesis}
+\noNumSection{Practical Value of the Research Findings}
+\noNumSection{The Defended Statements}
+\noNumSection{Approval of the Research Findings}
+\noNumSection{Structure of the Dissertation}
+\chapter{LITERATURE REVIEW}%20 pages
+\section{Mitral Valve as Human Body Part}
+\subsection{Functional Anatomy of Heart and Mitral Valve}
+\subsection{Mitral Valve Function and Dysfunction}
+\subsection{Mitral Valve Surgical Repair Techniques}
+\section{Computational Models}
+\subsection{Discrete Element Method}
+\subsection{Fluid-Structure Interaction Models}
+\section{Modelling of Biological Soft Tissues}
+\subsection{Soft Fibers Structural Models}
+\subsection{Mitral Valve and Blood}
+\subsection{Computational Models for Mitral Valve Repair}
+\subsection{Conclusions and Thesis Tasks Formulation}
+\chapter{Discrete Models of Soft Fibers}%10-15 pages
+\section{Problem Formulation}
+\section{Basic Equations}
+\section{Computational Forces}
+\subsection{Geometrical nonlinearity}
+\subsection{Nonlinear Elasticity}
+\subsection{Nonconservative transversial loading}
+\subsection{Fibers in Fluid}
+\subsection{Integration Methods}
+\section{Membrane as A system of Soft Fibers}
+\chapter{Application of discrete models}%30 pages
+\section{Pulling of Chordae Tendineae}
+\section{Chordae Tendineae - Membrane Junction}
+\chapter{Developing method of preparing medical data}%20 pages
+\section{Patient-Specific Mitral Valve Geometry}
+\subsection{Echocardiographic Data Acquisition}
+\subsection{Echocardiographic Image Segmentation}
+\section{Patient-Specific Geometry Reconstruction}
+\subsection{Simplyfiyng Patient-Specific 3D Model To MassPoints}
+\chapter{Conclusions}
+\noNumChapter{INTRODUCTION}
 
-\printbibliography[title=List of literature]
+%\printbibliography[title=List of literature]
 \end{document}
